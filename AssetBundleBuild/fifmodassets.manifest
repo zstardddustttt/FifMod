@@ -1,0 +1,111 @@
+ManifestFileVersion: 0
+CRC: 2219841810
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 23102fff5df6f13ec77c7799ff1bdd78
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a293ddaec5489f28ad1f21cf6f23f4db
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 23102fff5df6f13ec77c7799ff1bdd78
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 04f75356a7e9c978bddc7d568e58a50b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3c36d0a92cbb1f26a39169ef0eae393a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3d0cf24d2ccc3b7eab72048d0f57c437, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0e80ae96b3eb9177eea5c8f9dadbcda1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Battery
+- AssemblyName: Unity.RenderPipelines.HighDefinition.Runtime
+  ClassName: UnityEngine.Rendering.HighDefinition.BoolScalableSettingValue
+- AssemblyName: Unity.RenderPipelines.HighDefinition.Runtime
+  ClassName: UnityEngine.Rendering.HighDefinition.IntScalableSettingValue
+Assets:
+- Assets/fifmod/Items/Axe/StickColor.jpg
+- Assets/fifmod/Items/Axe/StickNormal.jpg
+- Assets/fifmod/Items/Axe/AxeIcon.png
+- Assets/fifmod/Items/Axe/TopBrightMetalness.jpg
+- Assets/fifmod/Items/Axe/TopDarkMetalness.jpg
+- Assets/fifmod/Scraps/SilverBar/SilverBar.asset
+- Assets/fifmod/Items/Glowstick/Light.mat
+- Assets/fifmod/Items/Glowstick/Glowstick.prefab
+- Assets/fifmod/Scraps/SilverBar/MetalTextNormal.png
+- Assets/fifmod/Scraps/SilverBar/MetalNormal.jpg
+- Assets/fifmod/Items/Axe/AxeReelUp.wav
+- Assets/fifmod/Items/Axe/TopBrightNormal.jpg
+- Assets/fifmod/Items/Axe/StickAO.jpg
+- Assets/fifmod/Items/Axe/AxeModel.fbx
+- Assets/fifmod/Items/Glowstick/MetalNormal.jpg
+- Assets/fifmod/Items/Glowstick/GlowstickGrab.wav
+- Assets/fifmod/Items/Glowstick/GlowstickIcon.png
+- Assets/fifmod/Items/Glowstick/GlowstickDrop.wav
+- Assets/fifmod/Scraps/SilverBar/MetalText.mat
+- Assets/fifmod/Items/Axe/AxeInfo.asset
+- Assets/fifmod/Scraps/SilverBar/MetalColor.jpg
+- Assets/fifmod/Scraps/SilverBar/SIlverBarDrop.wav
+- Assets/fifmod/Items/Axe/TopBrightColor.jpg
+- Assets/fifmod/Items/Axe/AxeSwing.wav
+- Assets/fifmod/Items/Glowstick/GlowstickOff.wav
+- Assets/fifmod/Items/Axe/AxeGrab.wav
+- Assets/fifmod/Items/Glowstick/GlowstickInfo.asset
+- Assets/fifmod/Items/Axe/Stick.mat
+- Assets/fifmod/Scraps/SilverBar/Metal.mat
+- Assets/fifmod/Items/Axe/AxeDrop.wav
+- Assets/fifmod/Items/Glowstick/MetalColor.jpg
+- Assets/fifmod/Items/Glowstick/GlowstickOn.wav
+- Assets/fifmod/Items/Axe/TopDark.mat
+- Assets/fifmod/Items/Glowstick/Metal.mat
+- Assets/fifmod/Items/Axe/TopDarkColor.jpg
+- Assets/fifmod/Items/Glowstick/Glowstick.fbx
+- Assets/fifmod/Scraps/SilverBar/SilverBar.prefab
+- Assets/fifmod/Items/Axe/TopBright.mat
+- Assets/fifmod/Items/Axe/TopDarkNormal.jpg
+- Assets/fifmod/Scraps/SilverBar/SIlverBarPickup.wav
+- Assets/fifmod/Scraps/SilverBar/SilverBar.fbx
+- Assets/fifmod/Items/Glowstick/GlowstickSwitch.wav
+- Assets/fifmod/Items/Axe/AxeItem.asset
+- Assets/fifmod/Items/Glowstick/GlowstickItem.asset
+- Assets/fifmod/Items/Axe/AxeHit.wav
+- Assets/fifmod/Items/Axe/Axe.prefab
+Dependencies: []
