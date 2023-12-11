@@ -1,0 +1,7 @@
+FifMod/bin
+FifMod/obj
+build.ps1
+NetWeaver
+*.sln
+*.code-workspace
+*.editorconfig
