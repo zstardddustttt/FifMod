@@ -54,12 +54,12 @@ namespace FifMod.Definitions
 
         private readonly Color[] colors = new Color[]
         {
-            new(1, 0.05f, 0.05f),
-            new(1, 1, 0.05f),
-            new(0.05f, 1, 0.05f),
-            new(0.05f, 1, 1),
-            new(0.05f, 0.05f, 1),
-            new(1, 0.05f, 1),
+            new(1, 0.1f, 0.05f),
+            new(1, 1, 0.1f),
+            new(0.05f, 1, 0.1f),
+            new(0.1f, 1, 1),
+            new(0.05f, 0.1f, 1),
+            new(1, 0.1f, 1),
             new(1, 1, 1)
         };
 
