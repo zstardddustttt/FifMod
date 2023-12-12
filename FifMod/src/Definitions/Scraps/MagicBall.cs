@@ -37,7 +37,7 @@ namespace FifMod.Definitions
             grabbableToEnemies = true;
             _canShake = true;
 
-            _answerObject = transform.GetChild(0);
+            _answerObject = transform.GetChild(0).GetChild(0);
             _answerObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
             _targetRotation = 90;
 
