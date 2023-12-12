@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
+using LethalLib.Modules;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace FifMod.Definitions
 {
-    public class MagicBallProperties : FifModItemProperties
+    public class MagicBallProperties : FifModScrapProperties
     {
-        public override int Price => 30;
-        public override string ItemAssetPath => "Items/MagicBall/MagicBallItem.asset";
-        public override string InfoAssetPath => "Items/MagicBall/MagicBallInfo.asset";
+        public override string ItemAssetPath => "Scraps/MagicBall/MagicBallItem.asset";
+        public override int Rarity => ConfigManager.ScrapsMagicBallRarity.Value;
+        public override Levels.LevelTypes Moons => Levels.LevelTypes.All;
 
         public override Type CustomBehaviour => typeof(MagicBallBehaviour);
     }
@@ -20,8 +21,18 @@ namespace FifMod.Definitions
         private Transform _answerObject;
         private float _targetRotation;
 
+        private AudioSource _audioSource;
+        private AudioClip _shakeSound;
+        private AudioClip _yesSound;
+        private AudioClip _noSound;
+
         public override void Start()
         {
+            _audioSource = GetComponent<AudioSource>();
+            _shakeSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallShake.wav");
+            _yesSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallYes.wav");
+            _noSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallNo.wav");
+
             grabbable = true;
             grabbableToEnemies = true;
             _canShake = true;
@@ -45,15 +56,41 @@ namespace FifMod.Definitions
         {
             _canShake = false;
             playerHeldBy.playerBodyAnimator.SetTrigger("shakeItem");
+            PlayShakeServerRpc();
 
             MoveRotationServerRpc(90);
             yield return new WaitForSeconds(0.4f);
 
             var randomChoice = UnityEngine.Random.Range(0, 2);
-            MoveRotationServerRpc(randomChoice * 180);
+            SyncRandomServerRpc(randomChoice);
 
             yield return new WaitForSeconds(0.2f);
             _canShake = true;
+        }
+
+        [ServerRpc]
+        private void PlayShakeServerRpc()
+        {
+            PlayShakeClientRpc();
+        }
+
+        [ClientRpc]
+        private void PlayShakeClientRpc()
+        {
+            _audioSource.PlayOneShot(_shakeSound);
+        }
+
+        [ServerRpc]
+        private void SyncRandomServerRpc(int choice)
+        {
+            SyncRandomClientRpc(choice);
+        }
+
+        [ClientRpc]
+        private void SyncRandomClientRpc(int choice)
+        {
+            MoveRotation(choice * 180);
+            _audioSource.PlayOneShot(choice == 0 ? _yesSound : _noSound);
         }
 
         [ServerRpc]
@@ -64,6 +101,11 @@ namespace FifMod.Definitions
 
         [ClientRpc]
         private void MoveRotationClientRpc(float rotation)
+        {
+            MoveRotation(rotation);
+        }
+
+        private void MoveRotation(float rotation)
         {
             _targetRotation = rotation;
         }

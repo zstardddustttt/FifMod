@@ -8,7 +8,7 @@ namespace FifMod.Definitions
 {
     public class AxeProperties : FifModItemProperties
     {
-        public override int Price => ConfigManager.ConfigSledgePrice.Value;
+        public override int Price => ConfigManager.ItemsAxePrice.Value;
         public override string ItemAssetPath => "Items/Axe/AxeItem.asset";
         public override string InfoAssetPath => "Items/Axe/AxeInfo.asset";
 
@@ -67,8 +67,6 @@ namespace FifMod.Definitions
             playerHeldBy.twoHanded = true;
             playerHeldBy.playerBodyAnimator.ResetTrigger("shovelHit");
             playerHeldBy.playerBodyAnimator.SetBool("reelingUp", true);
-
-            _axeSource.PlayOneShot(_reelUpAudio);
             PlayReelUpServerRpc();
 
             yield return new WaitForSeconds(0.5f);
@@ -162,7 +160,6 @@ namespace FifMod.Definitions
 
             if (flag)
             {
-                RoundManager.PlayRandomClip(_axeSource, _hitAudio);
                 _roundManager.PlayAudibleNoise(transform.position, 17f, 0.8f);
                 playerHeldBy.playerBodyAnimator.SetTrigger("shovelHit");
                 HitAxeServerRpc(surfaceId);

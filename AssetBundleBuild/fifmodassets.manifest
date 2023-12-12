@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2896613267
+CRC: 3980231616
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5423fd307530e39d7013424fd8967ac4
+    Hash: 2a0d5cb4c131c9f37527a6b05d6526fa
   TypeTreeHash:
     serializedVersion: 2
     Hash: a293ddaec5489f28ad1f21cf6f23f4db
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 5423fd307530e39d7013424fd8967ac4
+    Hash: 2a0d5cb4c131c9f37527a6b05d6526fa
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -71,6 +71,7 @@ Assets:
 - Assets/fifmod/Items/Glowstick/Light.mat
 - Assets/fifmod/Items/Glowstick/Glowstick.prefab
 - Assets/fifmod/Scraps/SilverBar/MetalTextNormal.png
+- Assets/fifmod/Scraps/MagicBall/MagicBallDrop.wav
 - Assets/fifmod/Scraps/SilverBar/MetalNormal.jpg
 - Assets/fifmod/Items/Axe/AxeReelUp.wav
 - Assets/fifmod/Items/Axe/TopBrightNormal.jpg
@@ -78,24 +79,28 @@ Assets:
 - Assets/fifmod/Items/Axe/AxeModel.fbx
 - Assets/fifmod/Items/Glowstick/MetalNormal.jpg
 - Assets/fifmod/Items/Glowstick/GlowstickGrab.wav
-- Assets/fifmod/Items/MagicBall/MagicBall.prefab
-- Assets/fifmod/Items/MagicBall/BallPrimary.mat
-- Assets/fifmod/Items/MagicBall/Black.mat
+- Assets/fifmod/Scraps/MagicBall/MagicBall.prefab
+- Assets/fifmod/Scraps/MagicBall/BallPrimary.mat
+- Assets/fifmod/Scraps/MagicBall/Black.mat
 - Assets/fifmod/Items/Glowstick/GlowstickIcon.png
-- Assets/fifmod/Items/MagicBall/MagicBallItem.asset
+- Assets/fifmod/Scraps/MagicBall/MagicBallItem.asset
+- Assets/fifmod/Scraps/MagicBall/MagicBallShake.wav
 - Assets/fifmod/Items/Glowstick/GlowstickDrop.wav
 - Assets/fifmod/Scraps/SilverBar/MetalText.mat
+- Assets/fifmod/Scraps/MagicBall/MagicBallGrab.wav
 - Assets/fifmod/Items/Axe/AxeInfo.asset
 - Assets/fifmod/Scraps/SilverBar/MetalColor.jpg
 - Assets/fifmod/Scraps/SilverBar/SIlverBarDrop.wav
 - Assets/fifmod/Items/Axe/TopBrightColor.jpg
 - Assets/fifmod/Items/Axe/AxeSwing.wav
-- Assets/fifmod/Items/MagicBall/MagicBall.fbx
-- Assets/fifmod/Items/MagicBall/AnswerColor.png
+- Assets/fifmod/Scraps/MagicBall/MagicBall.fbx
+- Assets/fifmod/Scraps/MagicBall/MagicBallNo.wav
+- Assets/fifmod/Scraps/MagicBall/AnswerColor.png
+- Assets/fifmod/Scraps/MagicBall/MagicBallYes.wav
+- Assets/fifmod/Scraps/MagicBall/Answer.mat
 - Assets/fifmod/Items/Glowstick/GlowstickOff.wav
-- Assets/fifmod/Items/MagicBall/Answer.mat
 - Assets/fifmod/Items/Axe/AxeGrab.wav
-- Assets/fifmod/Items/MagicBall/BallSecondary.mat
+- Assets/fifmod/Scraps/MagicBall/BallSecondary.mat
 - Assets/fifmod/Items/Axe/Stick.mat
 - Assets/fifmod/Scraps/SilverBar/Metal.mat
 - Assets/fifmod/Items/Glowstick/GlowstickInfo.asset
@@ -108,7 +113,6 @@ Assets:
 - Assets/fifmod/Items/Glowstick/Glowstick.fbx
 - Assets/fifmod/Scraps/SilverBar/SilverBar.prefab
 - Assets/fifmod/ScrapItemIcon2.png
-- Assets/fifmod/Items/MagicBall/MagicBallInfo.asset
 - Assets/fifmod/Items/Axe/TopBright.mat
 - Assets/fifmod/Items/Axe/TopDarkNormal.jpg
 - Assets/fifmod/Scraps/SilverBar/SIlverBarPickup.wav

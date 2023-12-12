@@ -7,7 +7,7 @@ namespace FifMod.Definitions
 {
     public class GlowstickProperties : FifModItemProperties
     {
-        public override int Price => 85;
+        public override int Price => ConfigManager.ItemsGlowstickPrice.Value;
         public override string ItemAssetPath => "Items/Glowstick/GlowstickItem.asset";
         public override string InfoAssetPath => "Items/Glowstick/GlowstickInfo.asset";
 
