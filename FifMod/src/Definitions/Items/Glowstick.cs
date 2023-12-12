@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace FifMod.Definitions
@@ -82,10 +83,7 @@ namespace FifMod.Definitions
             _defaultEmissionIntensity = 5f;
             MaterialEmission = 5f;
 
-            _lightEnabled = false;
-            _lightSource.enabled = false;
-            _lightSource.intensity = 0f;
-
+            ToggleVisual(false, false);
             SelectColor(1);
             base.Start();
         }
@@ -93,7 +91,7 @@ namespace FifMod.Definitions
         public override void ItemInteractLeftRight(bool right)
         {
             base.ItemInteractLeftRight(right);
-            if (!right) ToggleLight(!_lightEnabled);
+            if (!right) ToggleLightServerRpc(!_lightEnabled);
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -102,18 +100,15 @@ namespace FifMod.Definitions
 
             if (!_lightEnabled) return;
             int nextIdx = (_selectedColor + 1) % colors.Length;
-            SelectColor(nextIdx);
+            SelectColorServerRpc(nextIdx);
         }
 
         public override void PocketItem()
         {
             playerHeldBy.equippedUsableItemQE = false;
-            if (IsOwner && playerHeldBy)
-            {
-                isBeingUsed = false;
-            }
+            if (playerHeldBy) isBeingUsed = false;
 
-            ToggleVisual(false, false);
+            ToggleVisualServerRpc(false, false);
             base.PocketItem();
         }
 
@@ -121,7 +116,7 @@ namespace FifMod.Definitions
         {
             playerHeldBy.equippedUsableItemQE = true;
 
-            if (_lightEnabled) ToggleVisual(true, false);
+            if (_lightEnabled) ToggleVisualServerRpc(true, false);
             base.EquipItem();
         }
 
@@ -132,12 +127,36 @@ namespace FifMod.Definitions
             base.DiscardItem();
         }
 
+        [ServerRpc]
+        private void ToggleLightServerRpc(bool enable)
+        {
+            ToggleLightClientRpc(enable);
+        }
+
+        [ClientRpc]
+        private void ToggleLightClientRpc(bool enable)
+        {
+            ToggleLight(enable);
+        }
+
         private void ToggleLight(bool enable)
         {
             _lightEnabled = enable;
             ToggleVisual(enable, true);
 
             _audioSource.PlayOneShot(enable ? _enableAudio : _disableAudio);
+        }
+
+        [ServerRpc]
+        private void ToggleVisualServerRpc(bool enable, bool fade)
+        {
+            ToggleVisualClientRpc(enable, fade);
+        }
+
+        [ClientRpc]
+        private void ToggleVisualClientRpc(bool enable, bool fade)
+        {
+            ToggleVisual(enable, fade);
         }
 
         private void ToggleVisual(bool enable, bool fade)
@@ -152,11 +171,6 @@ namespace FifMod.Definitions
                 _lightSource.enabled = enable;
                 MaterialEmission = enable ? _defaultEmissionIntensity : 0;
             }
-        }
-
-        private void UpdateMaterial(Color color)
-        {
-            _lightMaterial.SetColor("_EmissiveColor", color);
         }
 
         private IEnumerator CO_ToggleLightVisual(bool enable)
@@ -194,6 +208,24 @@ namespace FifMod.Definitions
             }
         }
 
+        [ServerRpc]
+        private void SelectColorServerRpc(int idx)
+        {
+            SelectColorClientRpc(idx);
+        }
+
+        [ClientRpc]
+        private void SelectColorClientRpc(int idx)
+        {
+            SelectColor(idx);
+        }
+
+        private void SelectColor(int idx)
+        {
+            _selectedColor = idx;
+            _audioSource.PlayOneShot(_switchAudio);
+        }
+
         public override void Update()
         {
             base.Update();
@@ -202,12 +234,6 @@ namespace FifMod.Definitions
                 _lightSource.color = Color.Lerp(_lightSource.color, colors[_selectedColor], Time.deltaTime * 5);
                 MaterialColor = _lightSource.color;
             }
-        }
-
-        private void SelectColor(int idx)
-        {
-            _selectedColor = idx;
-            _audioSource.PlayOneShot(_switchAudio);
         }
     }
 }

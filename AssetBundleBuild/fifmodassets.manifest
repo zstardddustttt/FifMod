@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1430209629
+CRC: 543756620
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7fa600c99bde361bfd8c87e09fc413cb
+    Hash: 5f00130a779b8bbadea7be79b1d59e1a
   TypeTreeHash:
     serializedVersion: 2
     Hash: a293ddaec5489f28ad1f21cf6f23f4db
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 7fa600c99bde361bfd8c87e09fc413cb
+    Hash: 5f00130a779b8bbadea7be79b1d59e1a
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -99,6 +99,7 @@ Assets:
 - Assets/fifmod/Items/Axe/TopDarkColor.jpg
 - Assets/fifmod/Items/Glowstick/Glowstick.fbx
 - Assets/fifmod/Scraps/SilverBar/SilverBar.prefab
+- Assets/fifmod/ScrapItemIcon2.png
 - Assets/fifmod/Items/Axe/TopBright.mat
 - Assets/fifmod/Items/Axe/TopDarkNormal.jpg
 - Assets/fifmod/Scraps/SilverBar/SIlverBarPickup.wav
