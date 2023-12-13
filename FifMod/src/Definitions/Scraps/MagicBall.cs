@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using LethalLib.Modules;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -19,12 +20,17 @@ namespace FifMod.Definitions
     {
         private bool _canShake;
         private Transform _answerObject;
+        private TMP_Text _answerText;
         private float _targetRotation;
 
         private AudioSource _audioSource;
         private AudioClip _shakeSound;
         private AudioClip _yesSound;
         private AudioClip _noSound;
+        private AudioClip _maybeSound;
+
+        public record struct Answer(string Message, AudioClip Audio, int Chance);
+        private Answer[] _answers;
 
         public override void Start()
         {
@@ -32,14 +38,24 @@ namespace FifMod.Definitions
             _shakeSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallShake.wav");
             _yesSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallYes.wav");
             _noSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallNo.wav");
+            _maybeSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallMaybe.wav");
+
+            _answers = new Answer[]
+            {
+                new("yes", _yesSound, 45),
+                new("no", _noSound, 45),
+                new("maybe", _maybeSound, 10)
+            };
 
             grabbable = true;
             grabbableToEnemies = true;
             _canShake = true;
 
             _answerObject = transform.GetChild(0).GetChild(0);
+            _answerText = _answerObject.GetComponentInChildren<TMP_Text>();
             _answerObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
-            _targetRotation = 90;
+            _targetRotation = 180;
+            SetAnswerText();
 
             base.Start();
         }
@@ -58,11 +74,21 @@ namespace FifMod.Definitions
             playerHeldBy.playerBodyAnimator.SetTrigger("shakeItem");
             PlayShakeServerRpc();
 
-            MoveRotationServerRpc(90);
+            MoveRotationServerRpc(180);
             yield return new WaitForSeconds(0.4f);
 
-            var randomChoice = UnityEngine.Random.Range(0, 2);
-            SyncRandomServerRpc(randomChoice);
+            var random = UnityEngine.Random.Range(1, 101);
+            var randomOffset = 0;
+            for (int i = 0; i < _answers.Length; i++)
+            {
+                var answer = _answers[i];
+                if (random <= answer.Chance + randomOffset)
+                {
+                    SyncRandomServerRpc(i);
+                    break;
+                }
+                else randomOffset += answer.Chance;
+            }
 
             yield return new WaitForSeconds(0.2f);
             _canShake = true;
@@ -89,8 +115,10 @@ namespace FifMod.Definitions
         [ClientRpc]
         private void SyncRandomClientRpc(int choice)
         {
-            MoveRotation(choice * 180);
-            _audioSource.PlayOneShot(choice == 0 ? _yesSound : _noSound);
+            var answer = _answers[choice];
+            SetAnswerText(answer.Message);
+            _audioSource.PlayOneShot(answer.Audio);
+            MoveRotation(0);
         }
 
         [ServerRpc]
@@ -108,6 +136,23 @@ namespace FifMod.Definitions
         private void MoveRotation(float rotation)
         {
             _targetRotation = rotation;
+        }
+
+        private void SetAnswerText(string text = "")
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                _answerText.text = "";
+                _answerText.gameObject.SetActive(false);
+            }
+            else
+            {
+                _answerText.text = text;
+                if (!_answerText.gameObject.activeSelf)
+                {
+                    _answerText.gameObject.SetActive(true);
+                }
+            }
         }
 
         public override void Update()
