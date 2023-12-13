@@ -15,8 +15,8 @@ namespace FifMod
             ItemsAxePrice = config.Bind("Items", "Axe-Price", 110);
             ItemsGlowstickPrice = config.Bind("Items", "Glowstick-Price", 85);
 
-            ScrapsMagicBallRarity = config.Bind("Scraps", "Magic-Ball-Rarity", 100);
-            ScrapsSilverBarRarity = config.Bind("Scraps", "Silver-Bar-Rarity", 80);
+            ScrapsMagicBallRarity = config.Bind("Scraps", "Magic-Ball-Rarity", 80);
+            ScrapsSilverBarRarity = config.Bind("Scraps", "Silver-Bar-Rarity", 50);
         }
     }
 }
