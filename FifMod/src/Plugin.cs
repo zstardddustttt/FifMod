@@ -1,15 +1,19 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using HarmonyLib;
+using LethalLib;
 
 namespace FifMod
 {
     [BepInPlugin("zstardustttt.lethal.fifmod", "FifMod", "1.0.0")]
     [BepInDependency("evaisa.lethallib")]
     [BepInProcess("Lethal Company.exe")]
+    [BepInIncompatibility("MoreItems")]
     public class FifMod : BaseUnityPlugin
     {
         public static new ManualLogSource Logger { get; private set; }
         public static FifModAssets Assets { get; private set; }
+        public readonly static Harmony harmony = new(Plugin.ModGUID);
 
         private void Awake()
         {
@@ -20,6 +24,7 @@ namespace FifMod
             Assets = new("fifmodassets");
             ContentManager.RegisterContent(Assets);
 
+            harmony.PatchAll();
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
     }
