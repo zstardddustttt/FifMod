@@ -20,7 +20,7 @@ namespace FifMod
             ScrapsMagicBallRarity = config.Bind("Scraps", "Magic-Ball-Rarity", 80);
             ScrapsSilverBarRarity = config.Bind("Scraps", "Silver-Bar-Rarity", 50);
 
-            MiscShipCapacity = config.Bind("Misc", "Ship-Capacity", 999);
+            MiscShipCapacity = config.Bind("Misc", "Ship-Capacity", 999, "Increases maximum amount of items that game can save");
         }
     }
 }
