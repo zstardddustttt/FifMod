@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using LethalLib.Modules;
 using TMPro;
 using Unity.Netcode;
@@ -14,6 +15,10 @@ namespace FifMod.Definitions
         public override Levels.LevelTypes Moons => Levels.LevelTypes.All;
 
         public override Type CustomBehaviour => typeof(MagicBallBehaviour);
+        public override Dictionary<string, string> Tooltips => new()
+        {
+            {"Item primary use", "Shake ball"}
+        };
     }
 
     public class MagicBallBehaviour : GrabbableObject
@@ -34,6 +39,12 @@ namespace FifMod.Definitions
 
         public override void Start()
         {
+            var d = FindObjectOfType<KepRemapPanel>(true).remappableKeys[8];
+            FifMod.Logger.LogInfo(d.ControlName);
+            FifMod.Logger.LogInfo(d.rebindingIndex);
+            FifMod.Logger.LogInfo(d.currentInput.name);
+            FifMod.Logger.LogInfo(d.currentInput.action.controls[0].name);
+
             _audioSource = GetComponent<AudioSource>();
             _shakeSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallShake.wav");
             _yesSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallYes.wav");
@@ -71,10 +82,10 @@ namespace FifMod.Definitions
         private IEnumerator CO_ShakeBall()
         {
             _canShake = false;
+
             playerHeldBy.playerBodyAnimator.SetTrigger("shakeItem");
             PlayShakeServerRpc();
-
-            MoveRotationServerRpc(180);
+            MoveRotationServerRpc(UnityEngine.Random.Range(0, 2) == 0 ? -90 : 90);
             yield return new WaitForSeconds(0.4f);
 
             var random = UnityEngine.Random.Range(1, 101);

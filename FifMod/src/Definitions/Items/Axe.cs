@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
@@ -13,6 +14,10 @@ namespace FifMod.Definitions
         public override string InfoAssetPath => "Items/Axe/AxeInfo.asset";
 
         public override Type CustomBehaviour => typeof(AxeBehaviour);
+        public override Dictionary<string, string> Tooltips => new()
+        {
+            {"Item primary use", "Swing axe"}
+        };
     }
 
     public class AxeBehaviour : GrabbableObject

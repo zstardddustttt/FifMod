@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ namespace FifMod.Definitions
         public override string InfoAssetPath => "Items/Glowstick/GlowstickInfo.asset";
 
         public override Type CustomBehaviour => typeof(GlowstickBehaviour);
+        public override Dictionary<string, string> Tooltips => new()
+        {
+            {"Item Secondary use", "Power button"},
+            {"Item primary use", "Switch color"}
+        };
     }
 
     public class GlowstickBehaviour : GrabbableObject

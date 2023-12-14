@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using LethalLib.Modules;
 using UnityEngine;
@@ -9,6 +10,12 @@ namespace FifMod
     public static class ContentManager
     {
         private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
+        private static readonly Dictionary<Item, FifModObjectProperties> _objectProperties = new();
+
+        public static bool TryGetObjectProperties(Item item, out FifModObjectProperties properties)
+        {
+            return _objectProperties.TryGetValue(item, out properties);
+        }
 
         public static void RegisterContent(FifModAssets assets)
         {
@@ -45,6 +52,7 @@ namespace FifMod
                     FifMod.Logger.LogWarning($"Terminal Node at path {properties.InfoAssetPath} was not found");
                     continue;
                 }
+                _objectProperties.Add(item, properties);
 
                 if (properties.CustomBehaviour != null)
                 {
@@ -67,6 +75,7 @@ namespace FifMod
                     FifMod.Logger.LogWarning($"Item at path {properties.ItemAssetPath} was not found");
                     continue;
                 }
+                _objectProperties.Add(item, properties);
 
                 if (properties.CustomBehaviour != null)
                 {
