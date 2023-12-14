@@ -64,11 +64,17 @@ namespace FifMod.Definitions
 
             _answerObject = transform.GetChild(0).GetChild(0);
             _answerText = _answerObject.GetComponentInChildren<TMP_Text>();
+
+            ResetMagicBall();
+            base.Start();
+        }
+
+        private void ResetMagicBall()
+        {
             _answerObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
             _targetRotation = 180;
-            SetAnswerText();
-
-            base.Start();
+            _answerText.text = "";
+            ToggleAnswerText(false);
         }
 
         public override void ItemActivate(bool used, bool buttonDown = true)
@@ -77,6 +83,18 @@ namespace FifMod.Definitions
 
             if (!playerHeldBy) return;
             if (_canShake) StartCoroutine(nameof(CO_ShakeBall));
+        }
+
+        public override void PocketItem()
+        {
+            base.PocketItem();
+            ToggleAnswerText(false);
+        }
+
+        public override void EquipItem()
+        {
+            base.EquipItem();
+            ToggleAnswerText(true);
         }
 
         private IEnumerator CO_ShakeBall()
@@ -127,7 +145,7 @@ namespace FifMod.Definitions
         private void SyncRandomClientRpc(int choice)
         {
             var answer = _answers[choice];
-            SetAnswerText(answer.Message);
+            _answerText.text = answer.Message;
             _audioSource.PlayOneShot(answer.Audio);
             MoveRotation(0);
         }
@@ -149,21 +167,9 @@ namespace FifMod.Definitions
             _targetRotation = rotation;
         }
 
-        private void SetAnswerText(string text = "")
+        private void ToggleAnswerText(bool enable)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                _answerText.text = "";
-                _answerText.gameObject.SetActive(false);
-            }
-            else
-            {
-                _answerText.text = text;
-                if (!_answerText.gameObject.activeSelf)
-                {
-                    _answerText.gameObject.SetActive(true);
-                }
-            }
+            _answerText.gameObject.SetActive(enable);
         }
 
         public override void Update()
