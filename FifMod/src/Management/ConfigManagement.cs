@@ -17,8 +17,8 @@ namespace FifMod
             ItemsAxePrice = config.Bind("Items", "Axe-Price", 110);
             ItemsGlowstickPrice = config.Bind("Items", "Glowstick-Price", 85);
 
-            ScrapsMagicBallRarity = config.Bind("Scraps", "Magic-Ball-Rarity", 80);
-            ScrapsSilverBarRarity = config.Bind("Scraps", "Silver-Bar-Rarity", 50);
+            ScrapsMagicBallRarity = config.Bind("Scraps", "Magic-Ball-Rarity", 65);
+            ScrapsSilverBarRarity = config.Bind("Scraps", "Silver-Bar-Rarity", 30);
 
             MiscShipCapacity = config.Bind("Misc", "Ship-Capacity", 999, "Increases maximum amount of items that game can save");
         }
