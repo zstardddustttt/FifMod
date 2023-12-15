@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FifMod.Utils;
 using LethalLib.Modules;
 using UnityEngine;
 
@@ -15,6 +16,19 @@ namespace FifMod
         public static bool TryGetObjectProperties(Item item, out FifModObjectProperties properties)
         {
             return _objectProperties.TryGetValue(item, out properties);
+        }
+
+        private static void RegisterObject(Item item, FifModObjectProperties properties)
+        {
+            _objectProperties.Add(item, properties);
+            item.weight = FifModUtils.PoundsToItemWeight(properties.Weight);
+
+            if (properties.CustomBehaviour != null)
+            {
+                var behaviour = (GrabbableObject)item.spawnPrefab.AddComponent(properties.CustomBehaviour);
+                behaviour.itemProperties = item;
+            }
+            NetworkPrefabs.RegisterNetworkPrefab(item.spawnPrefab);
         }
 
         public static void RegisterContent(FifModAssets assets)
@@ -52,16 +66,9 @@ namespace FifMod
                     FifMod.Logger.LogWarning($"Terminal Node at path {properties.InfoAssetPath} was not found");
                     continue;
                 }
-                _objectProperties.Add(item, properties);
-
-                if (properties.CustomBehaviour != null)
-                {
-                    var behaviour = (GrabbableObject)item.spawnPrefab.AddComponent(properties.CustomBehaviour);
-                    behaviour.itemProperties = item;
-                }
 
                 FifMod.Logger.LogInfo($"Registering item | Name: {item.itemName} | Price: {properties.Price}");
-                NetworkPrefabs.RegisterNetworkPrefab(item.spawnPrefab);
+                RegisterObject(item, properties);
                 Items.RegisterShopItem(item, null, null, info, properties.Price);
                 registeredItems++;
             }
@@ -75,17 +82,10 @@ namespace FifMod
                     FifMod.Logger.LogWarning($"Item at path {properties.ItemAssetPath} was not found");
                     continue;
                 }
-                _objectProperties.Add(item, properties);
-
-                if (properties.CustomBehaviour != null)
-                {
-                    var behaviour = (GrabbableObject)item.spawnPrefab.AddComponent(properties.CustomBehaviour);
-                    behaviour.itemProperties = item;
-                }
 
                 var avgCost = (item.minValue + item.maxValue) / 2;
                 FifMod.Logger.LogInfo($"Registering scrap | Name: {item.itemName} | Avg Cost: {avgCost}");
-                NetworkPrefabs.RegisterNetworkPrefab(item.spawnPrefab);
+                RegisterObject(item, properties);
                 Items.RegisterScrap(item, properties.Rarity, properties.Moons);
                 registeredScraps++;
             }

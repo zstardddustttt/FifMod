@@ -12,5 +12,10 @@ namespace FifMod.Utils
                 _ => key.ToUpper(),
             };
         }
+
+        public static float PoundsToItemWeight(int pounds)
+        {
+            return (float)pounds / 105 + 1;
+        }
     }
 }

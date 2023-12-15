@@ -18,6 +18,8 @@ namespace FifMod.Definitions
         {
             {"Item primary use", "Swing axe"}
         };
+
+        public override int Weight => 21;
     }
 
     public class AxeBehaviour : GrabbableObject

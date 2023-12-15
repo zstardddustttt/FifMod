@@ -19,6 +19,8 @@ namespace FifMod.Definitions
         {
             {"Item primary use", "Shake ball"}
         };
+
+        public override int Weight => 1;
     }
 
     public class MagicBallBehaviour : GrabbableObject

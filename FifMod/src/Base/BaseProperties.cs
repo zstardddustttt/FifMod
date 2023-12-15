@@ -10,6 +10,7 @@ namespace FifMod
         public abstract Type CustomBehaviour { get; }
         public abstract string ItemAssetPath { get; }
         public abstract Dictionary<string, string> Tooltips { get; }
+        public abstract int Weight { get; }
     }
 
     public abstract class FifModScrapProperties : FifModObjectProperties

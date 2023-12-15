@@ -18,6 +18,8 @@ namespace FifMod.Definitions
             {"Item Secondary use", "Power button"},
             {"Item primary use", "Switch color"}
         };
+
+        public override int Weight => 2;
     }
 
     public class GlowstickBehaviour : GrabbableObject

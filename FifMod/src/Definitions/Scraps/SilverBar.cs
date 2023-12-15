@@ -12,5 +12,7 @@ namespace FifMod.Definitions
 
         public override Type CustomBehaviour => null;
         public override Dictionary<string, string> Tooltips => null;
+
+        public override int Weight => 32;
     }
 }
