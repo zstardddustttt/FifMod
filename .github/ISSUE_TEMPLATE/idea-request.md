@@ -1,7 +1,7 @@
 ---
 name: Idea request
 about: Suggest an idea for FifMod
-title: ''
+title: '[IDEA]'
 labels: idea request
 assignees: ''
 
