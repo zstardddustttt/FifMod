@@ -14,5 +14,8 @@ namespace FifMod.Definitions
         public override Dictionary<string, string> Tooltips => null;
 
         public override int Weight => 32;
+
+        public override int MinValue => 75;
+        public override int MaxValue => 140;
     }
 }

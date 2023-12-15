@@ -17,6 +17,8 @@ namespace FifMod
     {
         public abstract int Rarity { get; }
         public abstract Levels.LevelTypes Moons { get; }
+        public abstract int MinValue { get; }
+        public abstract int MaxValue { get; }
     }
 
     public abstract class FifModItemProperties : FifModObjectProperties
