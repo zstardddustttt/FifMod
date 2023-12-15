@@ -1,7 +1,7 @@
 ---
 name: Content request
 about: Suggest a content idea for FifMod
-title: ''
+title: '[CONTENT]'
 labels: idea request
 assignees: ''
 
