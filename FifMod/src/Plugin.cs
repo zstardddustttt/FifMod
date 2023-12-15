@@ -13,7 +13,7 @@ namespace FifMod
     {
         public static new ManualLogSource Logger { get; private set; }
         public static FifModAssets Assets { get; private set; }
-        public readonly static Harmony harmony = new(Plugin.ModGUID);
+        public readonly static Harmony harmony = new(PluginInfo.PLUGIN_GUID);
 
         private void Awake()
         {
