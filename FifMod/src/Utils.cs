@@ -41,47 +41,46 @@ namespace FifMod.Utils
             else if (distanceToPlayer < 25f)
                 HUDManager.Instance.ShakeCamera(ScreenShakeType.Small);
 
-            var objects1 = Physics.OverlapSphere(explosionPosition, maxDamageRange, 2621448, QueryTriggerInteraction.Collide);
-            for (int i = 0; i < objects1.Length; i++)
+            var objects = Physics.OverlapSphere(explosionPosition, maxDamageRange, 2621448, QueryTriggerInteraction.Collide);
+            for (int i = 0; i < objects.Length; i++)
             {
-                var distanceToObject = Vector3.Distance(explosionPosition, objects1[i].transform.position);
-                if (distanceToObject > 4f && Physics.Linecast(explosionPosition, objects1[i].transform.position + Vector3.up * 0.3f, 256, QueryTriggerInteraction.Ignore))
+                var distanceToObject = Vector3.Distance(explosionPosition, objects[i].transform.position);
+                if (distanceToObject > 4f && Physics.Linecast(explosionPosition, objects[i].transform.position + Vector3.up * 0.3f, 256, QueryTriggerInteraction.Ignore))
                 {
                     continue;
                 }
 
-                if (objects1[i].gameObject.layer == 3)
+                if (objects[i].gameObject.layer == 3)
                 {
-                    if (objects1[i].gameObject.TryGetComponent(out PlayerControllerB player) && player.IsOwner)
+                    if (objects[i].gameObject.TryGetComponent(out PlayerControllerB player) && player.IsOwner)
                     {
-                        var damageMultiplier = 1f - Mathf.Clamp01((distanceToObject - minDamageRange) / (maxDamageRange - minDamageRange));
-                        player.DamagePlayer((int)(damage * damageMultiplier), causeOfDeath: causeOfDeath);
+                        if (distanceToObject <= minDamageRange)
+                        {
+                            Vector3 bodyVelocity = (player.gameplayCamera.transform.position - explosionPosition) * 200f / Vector3.Distance(player.gameplayCamera.transform.position, explosionPosition);
+                            player.KillPlayer(bodyVelocity, spawnBody: true, CauseOfDeath.Blast);
+                        }
+                        else if (distanceToObject > minDamageRange && distanceToObject < maxDamageRange)
+                        {
+                            var damageMultiplier = 1f - Mathf.Clamp01((distanceToObject - minDamageRange) / (maxDamageRange - minDamageRange));
+                            player.DamagePlayer((int)(damage * damageMultiplier), causeOfDeath: causeOfDeath);
+                        }
                     }
                 }
-                else if (objects1[i].gameObject.layer == 21)
+                else if (objects[i].gameObject.layer == 21)
                 {
-                    var componentInChildren = objects1[i].gameObject.GetComponentInChildren<Landmine>();
+                    var componentInChildren = objects[i].gameObject.GetComponentInChildren<Landmine>();
                     if (componentInChildren != null && !componentInChildren.hasExploded && distanceToObject < 6f)
                     {
                         componentInChildren.StartCoroutine(componentInChildren.TriggerOtherMineDelayed(componentInChildren));
                     }
                 }
-                else if (objects1[i].gameObject.layer == 19)
+                else if (objects[i].gameObject.layer == 19)
                 {
-                    var componentInChildren2 = objects1[i].gameObject.GetComponentInChildren<EnemyAICollisionDetect>();
+                    var componentInChildren2 = objects[i].gameObject.GetComponentInChildren<EnemyAICollisionDetect>();
                     if (componentInChildren2 != null && componentInChildren2.mainScript.IsOwner && distanceToObject < 4.5f)
                     {
                         componentInChildren2.mainScript.HitEnemyOnLocalClient(enemyHitForce, playerWhoHit: attacker);
                     }
-                }
-            }
-
-            var objects2 = Physics.OverlapSphere(explosionPosition, 10f, ~LayerMask.GetMask("Colliders"));
-            for (int i = 0; i < objects2.Length; i++)
-            {
-                if (objects2[i].TryGetComponent(out Rigidbody rb))
-                {
-                    rb.AddExplosionForce(100f, explosionPosition, 10f, 3f, ForceMode.Impulse);
                 }
             }
         }
