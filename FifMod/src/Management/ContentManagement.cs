@@ -86,7 +86,7 @@ namespace FifMod
                 item.minValue = (int)(properties.MinValue / 0.4f);
                 item.maxValue = (int)(properties.MaxValue / 0.4f);
 
-                var avgCost = (item.minValue + item.maxValue) / 2;
+                var avgCost = (properties.MinValue + properties.MaxValue) / 2;
                 FifMod.Logger.LogInfo($"Registering scrap | Name: {item.itemName} | Avg Cost: {avgCost}");
                 RegisterItem(item, properties);
                 Items.RegisterScrap(item, properties.Rarity, properties.Moons);

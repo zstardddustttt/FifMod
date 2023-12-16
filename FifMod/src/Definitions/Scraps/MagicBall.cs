@@ -155,8 +155,11 @@ namespace FifMod.Definitions
             _answerSource.PlayOneShot(answer.Audio);
             MoveRotation(0);
 
-            StopCoroutine(nameof(CO_IncreaseInstability));
-            StartCoroutine(nameof(CO_IncreaseInstability));
+            if (GameNetworkManager.Instance.gameHasStarted)
+            {
+                StopCoroutine(nameof(CO_IncreaseInstability));
+                StartCoroutine(nameof(CO_IncreaseInstability));
+            }
         }
 
         private IEnumerator CO_IncreaseInstability()
