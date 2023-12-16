@@ -50,12 +50,6 @@ namespace FifMod.Definitions
 
         public override void Start()
         {
-            var d = FindObjectOfType<KepRemapPanel>(true).remappableKeys[8];
-            FifMod.Logger.LogInfo(d.ControlName);
-            FifMod.Logger.LogInfo(d.rebindingIndex);
-            FifMod.Logger.LogInfo(d.currentInput.name);
-            FifMod.Logger.LogInfo(d.currentInput.action.controls[0].name);
-
             _audioSource = GetComponent<AudioSource>();
             _shakeSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallShake.wav");
             _yesSound = FifMod.Assets.GetAsset<AudioClip>("Scraps/MagicBall/MagicBallYes.wav");
@@ -175,8 +169,8 @@ namespace FifMod.Definitions
                 var rand = UnityEngine.Random.Range(0, 30);
                 if (rand <= _instabilityLevel / 2)
                 {
-                    FifModUtils.CreateExplosion(transform.position, true, 200, enemyHitForce: 10);
                     playerHeldBy.DiscardHeldObject();
+                    FifModUtils.CreateExplosion(transform.position, true, 200, enemyHitForce: 10);
                     Destroy(gameObject);
                 }
             }
