@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using FifMod.Patches;
 using HarmonyLib;
 
 namespace FifMod
@@ -23,6 +24,7 @@ namespace FifMod
             Assets = new("fifmodassets");
             ContentManager.RegisterContent(Assets);
 
+            harmony.PatchAll(typeof(FifModBackendPatches));
             harmony.PatchAll();
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }

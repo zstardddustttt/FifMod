@@ -21,10 +21,4 @@
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="LethalLib">
-      <HintPath>FifMod/lib/LethalLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 </Project>

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using FifMod.Utils;
-using LethalLib.Modules;
 using UnityEngine;
 
 namespace FifMod
@@ -28,7 +26,7 @@ namespace FifMod
                 var behaviour = (GrabbableObject)item.spawnPrefab.AddComponent(properties.CustomBehaviour);
                 behaviour.itemProperties = item;
             }
-            NetworkPrefabs.RegisterNetworkPrefab(item.spawnPrefab);
+            FifModBackend.RegisterNetworkPrefab(item.spawnPrefab);
         }
 
         public static void RegisterContent(FifModAssets assets)
@@ -69,7 +67,7 @@ namespace FifMod
 
                 FifMod.Logger.LogInfo($"Registering store item | Name: {item.itemName} | Price: {properties.Price}");
                 RegisterItem(item, properties);
-                Items.RegisterShopItem(item, null, null, info, properties.Price);
+                FifModBackend.RegisterStoreItem(item, properties.Price, info);
                 registeredStoreItems++;
             }
             FifMod.Logger.LogInfo($"Registered {registeredStoreItems}/{storeItemProperties.Count} store items");
@@ -89,7 +87,7 @@ namespace FifMod
                 var avgCost = (properties.MinValue + properties.MaxValue) / 2;
                 FifMod.Logger.LogInfo($"Registering scrap | Name: {item.itemName} | Avg Cost: {avgCost}");
                 RegisterItem(item, properties);
-                Items.RegisterScrap(item, properties.Rarity, properties.Moons);
+                FifModBackend.RegisterScrap(item, properties.Rarity, properties.Moons);
                 registeredScraps++;
             }
             FifMod.Logger.LogInfo($"Registered {registeredScraps}/{scrapProperties.Count} scraps");

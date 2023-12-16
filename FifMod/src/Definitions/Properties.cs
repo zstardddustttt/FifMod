@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using LethalLib.Modules;
 using UnityEngine;
 
 namespace FifMod
@@ -21,7 +20,7 @@ namespace FifMod
     public abstract class FifModScrapProperties : FifModItemProperties
     {
         public abstract int Rarity { get; }
-        public abstract Levels.LevelTypes Moons { get; }
+        public abstract MoonFlags Moons { get; }
         public abstract int MinValue { get; }
         public abstract int MaxValue { get; }
     }
@@ -34,7 +33,7 @@ namespace FifMod
 
     public abstract class FifModEntityProperties : FifModProperties
     {
-        public abstract Levels.LevelTypes Moons { get; }
+        public abstract MoonFlags Moons { get; }
     }
 
     public abstract class FifModMapObjectProperties : FifModEntityProperties
@@ -48,6 +47,6 @@ namespace FifMod
         public abstract string EnemyAssetPath { get; }
         public abstract string InfoAssetPath { get; }
         public abstract int Rarity { get; }
-        public abstract Enemies.SpawnType SpawnType { get; }
+        public abstract SpawnMode SpawnMode { get; }
     }
 }

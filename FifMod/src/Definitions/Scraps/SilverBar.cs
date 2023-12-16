@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using LethalLib.Modules;
 
 namespace FifMod.Definitions
 {
@@ -8,7 +7,7 @@ namespace FifMod.Definitions
     {
         public override string ItemAssetPath => "Scraps/SilverBar/SilverBar.asset";
         public override int Rarity => ConfigManager.ScrapsSilverBarRarity.Value;
-        public override Levels.LevelTypes Moons => Levels.LevelTypes.All;
+        public override MoonFlags Moons => MoonFlags.All;
 
         public override Type CustomBehaviour => null;
         public override Dictionary<string, string> Tooltips => null;

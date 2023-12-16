@@ -17,7 +17,9 @@
         "Raycast",
         "Remappable",
         "Rigidbody",
+        "Scriptable",
         "Slerp",
+        "spawnable",
         "Walkie",
         "zstardustttt"
     ]
