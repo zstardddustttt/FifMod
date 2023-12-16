@@ -56,7 +56,7 @@ namespace FifMod.Utils
                     {
                         if (distanceToObject <= minDamageRange)
                         {
-                            Vector3 bodyVelocity = (player.gameplayCamera.transform.position - explosionPosition) * 200f / Vector3.Distance(player.gameplayCamera.transform.position, explosionPosition);
+                            Vector3 bodyVelocity = (player.gameplayCamera.transform.position - explosionPosition) * 150f / Vector3.Distance(player.gameplayCamera.transform.position, explosionPosition);
                             player.KillPlayer(bodyVelocity, spawnBody: true, CauseOfDeath.Blast);
                         }
                         else if (distanceToObject > minDamageRange && distanceToObject < maxDamageRange)

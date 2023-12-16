@@ -154,7 +154,7 @@ namespace FifMod.Definitions
             _answerSource.PlayOneShot(answer.Audio);
             MoveRotation(0);
 
-            if (GameNetworkManager.Instance.gameHasStarted)
+            if (IsOwner && GameNetworkManager.Instance.gameHasStarted)
             {
                 StopCoroutine(nameof(CO_IncreaseInstability));
                 StartCoroutine(nameof(CO_IncreaseInstability));
@@ -163,23 +163,54 @@ namespace FifMod.Definitions
 
         private IEnumerator CO_IncreaseInstability()
         {
+            IncreaseInstabilityServerRpc();
+
+            yield return new WaitForSeconds(1f);
+            SetInstabilityServerRpc(0);
+        }
+
+        [ServerRpc]
+        private void IncreaseInstabilityServerRpc()
+        {
             _instabilityLevel++;
+            SetInstabilityClientRpc(_instabilityLevel);
+
             if (_instabilityLevel >= 4)
             {
-                _answerSource.pitch += (float)_instabilityLevel / 100 * 2;
-
                 var rand = UnityEngine.Random.Range(0, 30);
                 if (rand <= _instabilityLevel / 2)
                 {
-                    playerHeldBy.DiscardHeldObject();
-                    FifModUtils.CreateExplosion(transform.position, true, 200, enemyHitForce: 10);
-                    Destroy(gameObject);
+                    ExplodeClientRpc();
                 }
             }
+        }
 
-            yield return new WaitForSeconds(1f);
-            _instabilityLevel = 0;
-            _answerSource.pitch = 1f;
+        [ClientRpc]
+        private void ExplodeClientRpc()
+        {
+            FifModUtils.CreateExplosion(transform.position, true, 200, enemyHitForce: 10);
+            Destroy(gameObject);
+        }
+
+        [ServerRpc]
+        private void SetInstabilityServerRpc(int value)
+        {
+            SetInstabilityClientRpc(value);
+        }
+
+        [ClientRpc]
+        private void SetInstabilityClientRpc(int value)
+        {
+            _instabilityLevel = value;
+
+            if (_instabilityLevel >= 4)
+            {
+                _answerSource.pitch += (float)_instabilityLevel / 100 * 2;
+            }
+            else if (_instabilityLevel == 0)
+            {
+                _answerSource.pitch = 1;
+            }
         }
 
         [ServerRpc]
