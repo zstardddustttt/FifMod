@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FifMod.Definitions
 {
-    public class GlowstickProperties : FifModItemProperties
+    public class GlowstickProperties : FifModStoreItemProperties
     {
         public override int Price => ConfigManager.ItemsGlowstickPrice.Value;
         public override string ItemAssetPath => "Items/Glowstick/GlowstickItem.asset";
@@ -20,6 +20,7 @@ namespace FifMod.Definitions
         };
 
         public override int Weight => 2;
+        public override Type[] CustomBehaviours => null;
     }
 
     public class GlowstickBehaviour : GrabbableObject

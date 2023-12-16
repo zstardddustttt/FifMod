@@ -11,16 +11,16 @@ namespace FifMod
     public static class ContentManager
     {
         private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
-        private static readonly Dictionary<Item, FifModObjectProperties> _objectProperties = new();
+        private static readonly Dictionary<Item, FifModItemProperties> _itemProperties = new();
 
-        public static bool TryGetObjectProperties(Item item, out FifModObjectProperties properties)
+        public static bool TryGetItemProperties(Item item, out FifModItemProperties properties)
         {
-            return _objectProperties.TryGetValue(item, out properties);
+            return _itemProperties.TryGetValue(item, out properties);
         }
 
-        private static void RegisterObject(Item item, FifModObjectProperties properties)
+        private static void RegisterItem(Item item, FifModItemProperties properties)
         {
-            _objectProperties.Add(item, properties);
+            _itemProperties.Add(item, properties);
             item.weight = FifModUtils.PoundsToItemWeight(properties.Weight);
 
             if (properties.CustomBehaviour != null)
@@ -33,27 +33,27 @@ namespace FifMod
 
         public static void RegisterContent(FifModAssets assets)
         {
-            var itemsProperties = new List<FifModItemProperties>();
-            var scrapsProperties = new List<FifModScrapProperties>();
+            var storeItemProperties = new List<FifModStoreItemProperties>();
+            var scrapProperties = new List<FifModScrapProperties>();
             foreach (var type in _assembly.GetTypes())
             {
                 if (type.IsAbstract) continue;
 
-                if (type.IsSubclassOf(typeof(FifModItemProperties)))
+                if (type.IsSubclassOf(typeof(FifModStoreItemProperties)))
                 {
-                    FifMod.Logger.LogInfo($"Found item properties: {type.Name}");
-                    itemsProperties.Add((FifModItemProperties)Activator.CreateInstance(type));
+                    FifMod.Logger.LogInfo($"Found store item properties: {type.Name}");
+                    storeItemProperties.Add((FifModStoreItemProperties)Activator.CreateInstance(type));
                 }
                 else if (type.IsSubclassOf(typeof(FifModScrapProperties)))
                 {
                     FifMod.Logger.LogInfo($"Found scrap properties: {type.Name}");
-                    scrapsProperties.Add((FifModScrapProperties)Activator.CreateInstance(type));
+                    scrapProperties.Add((FifModScrapProperties)Activator.CreateInstance(type));
                 }
             }
-            FifMod.Logger.LogInfo($"Loaded {itemsProperties.Count} items, {scrapsProperties.Count} scraps");
+            FifMod.Logger.LogInfo($"Loaded {storeItemProperties.Count} store items, {scrapProperties.Count} scraps");
 
-            var registeredItems = 0;
-            foreach (var properties in itemsProperties)
+            var registeredStoreItems = 0;
+            foreach (var properties in storeItemProperties)
             {
                 if (!assets.TryGetAsset(properties.ItemAssetPath, out Item item))
                 {
@@ -67,15 +67,15 @@ namespace FifMod
                     continue;
                 }
 
-                FifMod.Logger.LogInfo($"Registering item | Name: {item.itemName} | Price: {properties.Price}");
-                RegisterObject(item, properties);
+                FifMod.Logger.LogInfo($"Registering store item | Name: {item.itemName} | Price: {properties.Price}");
+                RegisterItem(item, properties);
                 Items.RegisterShopItem(item, null, null, info, properties.Price);
-                registeredItems++;
+                registeredStoreItems++;
             }
-            FifMod.Logger.LogInfo($"Registered {registeredItems} out of {itemsProperties.Count} items");
+            FifMod.Logger.LogInfo($"Registered {registeredStoreItems}/{storeItemProperties.Count} store items");
 
             var registeredScraps = 0;
-            foreach (var properties in scrapsProperties)
+            foreach (var properties in scrapProperties)
             {
                 if (!assets.TryGetAsset(properties.ItemAssetPath, out Item item))
                 {
@@ -88,11 +88,11 @@ namespace FifMod
 
                 var avgCost = (item.minValue + item.maxValue) / 2;
                 FifMod.Logger.LogInfo($"Registering scrap | Name: {item.itemName} | Avg Cost: {avgCost}");
-                RegisterObject(item, properties);
+                RegisterItem(item, properties);
                 Items.RegisterScrap(item, properties.Rarity, properties.Moons);
                 registeredScraps++;
             }
-            FifMod.Logger.LogInfo($"Registered {registeredScraps} out of {scrapsProperties.Count} scraps");
+            FifMod.Logger.LogInfo($"Registered {registeredScraps}/{scrapProperties.Count} scraps");
 
             var types = Assembly.GetExecutingAssembly().GetTypes();
             foreach (var type in types)

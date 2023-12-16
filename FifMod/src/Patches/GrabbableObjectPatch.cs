@@ -12,7 +12,7 @@ namespace FifMod.Patches
         [HarmonyPrefix]
         private static void ApplyTooltips(ref Item ___itemProperties)
         {
-            if (!ContentManager.TryGetObjectProperties(___itemProperties, out FifModObjectProperties properties))
+            if (!ContentManager.TryGetObjectProperties(___itemProperties, out FifModStoreItemProperties properties))
                 return;
 
             if (properties.Tooltips == null) return;

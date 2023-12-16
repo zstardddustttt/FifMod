@@ -25,6 +25,8 @@ namespace FifMod.Definitions
 
         public override int MinValue => 45;
         public override int MaxValue => 85;
+
+        public override Type[] CustomBehaviours => null;
     }
 
     public class MagicBallBehaviour : GrabbableObject

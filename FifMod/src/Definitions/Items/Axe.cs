@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace FifMod.Definitions
 {
-    public class AxeProperties : FifModItemProperties
+    public class AxeProperties : FifModStoreItemProperties
     {
         public override int Price => ConfigManager.ItemsAxePrice.Value;
         public override string ItemAssetPath => "Items/Axe/AxeItem.asset";
@@ -20,6 +20,7 @@ namespace FifMod.Definitions
         };
 
         public override int Weight => 21;
+        public override Type[] CustomBehaviours => null;
     }
 
     public class AxeBehaviour : GrabbableObject

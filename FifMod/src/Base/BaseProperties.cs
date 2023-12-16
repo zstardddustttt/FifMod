@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
 using LethalLib.Modules;
+using UnityEngine;
 
 namespace FifMod
 {
-    public abstract class FifModProperties { }
-    public abstract class FifModObjectProperties : FifModProperties
+    public abstract class FifModProperties
     {
         public abstract Type CustomBehaviour { get; }
+        public abstract Type[] CustomBehaviours { get; }
+    }
+
+    public abstract class FifModItemProperties : FifModProperties
+    {
         public abstract string ItemAssetPath { get; }
         public abstract Dictionary<string, string> Tooltips { get; }
         public abstract int Weight { get; }
     }
 
-    public abstract class FifModScrapProperties : FifModObjectProperties
+    public abstract class FifModScrapProperties : FifModItemProperties
     {
         public abstract int Rarity { get; }
         public abstract Levels.LevelTypes Moons { get; }
@@ -21,9 +26,28 @@ namespace FifMod
         public abstract int MaxValue { get; }
     }
 
-    public abstract class FifModItemProperties : FifModObjectProperties
+    public abstract class FifModStoreItemProperties : FifModItemProperties
     {
         public abstract string InfoAssetPath { get; }
         public abstract int Price { get; }
+    }
+
+    public abstract class FifModEntityProperties : FifModProperties
+    {
+        public abstract Levels.LevelTypes Moons { get; }
+    }
+
+    public abstract class FifModMapObjectProperties : FifModEntityProperties
+    {
+        public abstract string ObjectAssetPath { get; }
+        public abstract Func<SelectableLevel, AnimationCurve> SpawnRateFunction { get; }
+    }
+
+    public abstract class FifModEnemyProperties : FifModEntityProperties
+    {
+        public abstract string EnemyAssetPath { get; }
+        public abstract string InfoAssetPath { get; }
+        public abstract int Rarity { get; }
+        public abstract Enemies.SpawnType SpawnType { get; }
     }
 }

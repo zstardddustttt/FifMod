@@ -17,5 +17,7 @@ namespace FifMod.Definitions
 
         public override int MinValue => 75;
         public override int MaxValue => 140;
+
+        public override Type[] CustomBehaviours => null;
     }
 }
