@@ -6,7 +6,6 @@ using HarmonyLib;
 namespace FifMod
 {
     [BepInPlugin("zstardustttt.lethal.fifmod", "FifMod", "1.0.0")]
-    [BepInDependency("evaisa.lethallib")]
     [BepInProcess("Lethal Company.exe")]
     [BepInIncompatibility("MoreItems")]
     public class FifMod : BaseUnityPlugin
