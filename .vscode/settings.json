@@ -1,22 +1,24 @@
 {
-  "cSpell.words": [
-    "Behaviour",
-    "Behaviours",
-    "evaisa",
-    "fifmod",
-    "fifmodassets",
-    "gameplay",
-    "Glowstick",
-    "Grabbable",
-    "Lerp",
-    "lethallib",
-    "Linecast",
-    "Mathf",
-    "Netcode",
-    "Raycast",
-    "Remappable",
-    "Slerp",
-    "Walkie",
-    "zstardustttt"
-  ]
+    "cSpell.words": [
+        "Behaviour",
+        "Behaviours",
+        "evaisa",
+        "fifmod",
+        "fifmodassets",
+        "gameplay",
+        "Glowstick",
+        "Grabbable",
+        "Layermask",
+        "Lerp",
+        "lethallib",
+        "Linecast",
+        "Mathf",
+        "Netcode",
+        "Raycast",
+        "Remappable",
+        "Rigidbody",
+        "Slerp",
+        "Walkie",
+        "zstardustttt"
+    ]
 }

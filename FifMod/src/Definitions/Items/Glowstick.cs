@@ -135,7 +135,7 @@ namespace FifMod.Definitions
             base.DiscardItem();
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         private void ToggleLightServerRpc(bool enable)
         {
             ToggleLightClientRpc(enable);
@@ -155,7 +155,7 @@ namespace FifMod.Definitions
             _audioSource.PlayOneShot(enable ? _enableAudio : _disableAudio);
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         private void ToggleVisualServerRpc(bool enable, bool fade)
         {
             ToggleVisualClientRpc(enable, fade);
@@ -216,7 +216,7 @@ namespace FifMod.Definitions
             }
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         private void SelectColorServerRpc(int idx)
         {
             SelectColorClientRpc(idx);

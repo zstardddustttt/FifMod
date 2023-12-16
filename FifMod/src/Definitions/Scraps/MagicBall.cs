@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FifMod.Utils;
 using LethalLib.Modules;
 using TMPro;
 using Unity.Netcode;
@@ -34,6 +35,7 @@ namespace FifMod.Definitions
         private float _targetRotation;
 
         private AudioSource _audioSource;
+        private AudioSource _answerSource;
         private AudioClip _shakeSound;
         private AudioClip _yesSound;
         private AudioClip _noSound;
@@ -41,6 +43,8 @@ namespace FifMod.Definitions
 
         public record struct Answer(string Message, AudioClip Audio, int Chance);
         private Answer[] _answers;
+
+        private int _instabilityLevel;
 
         public override void Start()
         {
@@ -69,6 +73,7 @@ namespace FifMod.Definitions
 
             _answerObject = transform.GetChild(0).GetChild(0);
             _answerText = _answerObject.GetComponentInChildren<TMP_Text>();
+            _answerSource = _answerObject.GetComponent<AudioSource>();
 
             ResetMagicBall();
             base.Start();
@@ -151,8 +156,32 @@ namespace FifMod.Definitions
         {
             var answer = _answers[choice];
             _answerText.text = answer.Message;
-            _audioSource.PlayOneShot(answer.Audio);
+            _answerSource.PlayOneShot(answer.Audio);
             MoveRotation(0);
+
+            StopCoroutine(nameof(CO_IncreaseInstability));
+            StartCoroutine(nameof(CO_IncreaseInstability));
+        }
+
+        private IEnumerator CO_IncreaseInstability()
+        {
+            _instabilityLevel++;
+            if (_instabilityLevel >= 4)
+            {
+                _answerSource.pitch += (float)_instabilityLevel / 100 * 2;
+
+                var rand = UnityEngine.Random.Range(0, 30);
+                if (rand <= _instabilityLevel / 2)
+                {
+                    FifModUtils.CreateExplosion(transform.position, true, 200, enemyHitForce: 10);
+                    playerHeldBy.DiscardHeldObject();
+                    Destroy(gameObject);
+                }
+            }
+
+            yield return new WaitForSeconds(1f);
+            _instabilityLevel = 0;
+            _answerSource.pitch = 1f;
         }
 
         [ServerRpc]
