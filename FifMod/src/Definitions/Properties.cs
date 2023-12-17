@@ -40,6 +40,7 @@ namespace FifMod
     {
         public abstract string ObjectAssetPath { get; }
         public abstract Func<SelectableLevel, AnimationCurve> SpawnRateFunction { get; }
+        public abstract MapObjectSpawnFlags SpawnFlags { get; }
     }
 
     public abstract class FifModEnemyProperties : FifModEntityProperties
@@ -47,6 +48,6 @@ namespace FifMod
         public abstract string EnemyAssetPath { get; }
         public abstract string InfoAssetPath { get; }
         public abstract int Rarity { get; }
-        public abstract SpawnMode SpawnMode { get; }
+        public abstract EnemySpawnFlags SpawnFlags { get; }
     }
 }

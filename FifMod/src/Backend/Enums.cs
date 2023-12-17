@@ -6,21 +6,51 @@ namespace FifMod
     public enum MoonFlags
     {
         None = 1 << 0,
-        ExperimentationLevel = 1 << 1,
-        AssuranceLevel = 1 << 2,
-        VowLevel = 1 << 3,
-        OffenseLevel = 1 << 4,
-        MarchLevel = 1 << 5,
-        RendLevel = 1 << 6,
-        DineLevel = 1 << 7,
-        TitanLevel = 1 << 8,
-        All = ExperimentationLevel | AssuranceLevel | VowLevel | OffenseLevel | MarchLevel | RendLevel | DineLevel | TitanLevel
+        Experimentation = 1 << 1,
+        Assurance = 1 << 2,
+        Vow = 1 << 3,
+        Offense = 1 << 4,
+        March = 1 << 5,
+        Rend = 1 << 6,
+        Dine = 1 << 7,
+        Titan = 1 << 8,
+        Abandoned = Experimentation,
+        Deserted = Assurance | Offense,
+        Forested = Vow | March,
+        Easy = Experimentation | Assurance | Vow,
+        Intermediate = Offense | March,
+        Expert = Rend | Dine | Titan,
+        All = Experimentation | Assurance | Vow | Offense | March | Rend | Dine | Titan
     }
 
-    public enum SpawnMode
+    [Flags]
+    public enum EnemySpawnFlags
     {
-        Facility,
-        Outside,
-        Daytime
+        None = 1 << 0,
+        Facility = 1 << 1,
+        Mansion = 1 << 2,
+        Outside = 1 << 3,
+        Daytime = 1 << 4,
+        All = Facility | Mansion | Outside | Daytime
+    }
+
+    [Flags]
+    public enum MapObjectSpawnFlags
+    {
+        None = 1 << 0,
+        Facility = 1 << 1,
+        Mansion = 1 << 2,
+        Outside = 1 << 3,
+        All = Facility | Mansion | Outside
+    }
+
+    [Flags]
+    public enum ScrapSpawnFlags
+    {
+        None = 1 << 0,
+        Facility = 1 << 1,
+        Mansion = 1 << 2,
+        Outside = 1 << 3,
+        All = Facility | Mansion | Outside
     }
 }

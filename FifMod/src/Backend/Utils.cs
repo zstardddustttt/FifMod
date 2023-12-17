@@ -18,6 +18,40 @@ namespace FifMod.Utils
             return keyword;
         }
 
+        public static bool TryGetMoonFlagFromName(string name, out MoonFlags flags)
+        {
+            switch (name)
+            {
+                case "ExperimentationLevel":
+                    flags = MoonFlags.Experimentation;
+                    return true;
+                case "AssuranceLevel":
+                    flags = MoonFlags.Assurance;
+                    return true;
+                case "VowLevel":
+                    flags = MoonFlags.Vow;
+                    return true;
+                case "OffenseLevel":
+                    flags = MoonFlags.Offense;
+                    return true;
+                case "MarchLevel":
+                    flags = MoonFlags.March;
+                    return true;
+                case "RendLevel":
+                    flags = MoonFlags.Rend;
+                    return true;
+                case "DineLevel":
+                    flags = MoonFlags.Dine;
+                    return true;
+                case "TitanLevel":
+                    flags = MoonFlags.Titan;
+                    return true;
+                default:
+                    flags = MoonFlags.None;
+                    return false;
+            }
+        }
+
         public static TerminalNode GetDefaultItemInfo(string itemName)
         {
             var output = ScriptableObject.CreateInstance<TerminalNode>();

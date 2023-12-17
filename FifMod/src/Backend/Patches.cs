@@ -20,33 +20,40 @@ namespace FifMod.Patches
             }
         }
 
-        [HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.Awake))]
-        [HarmonyPostfix]
-        private static void StartOfRound_Awake(StartOfRound __instance)
+        [HarmonyPatch(typeof(RoundManager), nameof(RoundManager.SpawnScrapInLevel))]
+        [HarmonyPrefix]
+        private static void RoundManager_SpawnScrapInLevel()
         {
-            foreach (SelectableLevel level in __instance.levels)
+            var startOfRound = StartOfRound.Instance;
+            foreach (SelectableLevel level in startOfRound.levels)
             {
-                var name = level.name;
-                if (!Enum.IsDefined(typeof(MoonFlags), name)) continue;
-                var levelEnum = (MoonFlags)Enum.Parse(typeof(MoonFlags), name);
+                if (!FifModBackendUtils.TryGetMoonFlagFromName(level.name, out MoonFlags flag)) continue;
+
                 foreach (Scrap scrap in Scraps)
                 {
-                    if (scrap.moons.HasFlag(levelEnum))
+                    var scrapIdx = level.spawnableScrap.FindIndex(current => current.spawnableItem == scrap.item);
+                    if (scrap.moons.HasFlag(flag) && scrapIdx == -1)
                     {
-                        var spawnableItemWithRarity = new SpawnableItemWithRarity()
+                        var scrapItem = new SpawnableItemWithRarity()
                         {
                             spawnableItem = scrap.item,
                             rarity = scrap.rarity
                         };
 
-                        if (!level.spawnableScrap.Exists(current => current.spawnableItem == scrap.item))
-                        {
-                            level.spawnableScrap.Add(spawnableItemWithRarity);
-                        }
+                        level.spawnableScrap.Add(scrapItem);
+                    }
+                    else if (!scrap.moons.HasFlag(flag) && scrapIdx != -1)
+                    {
+                        level.spawnableScrap.RemoveAt(scrapIdx);
                     }
                 }
             }
+        }
 
+        [HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.Awake))]
+        [HarmonyPostfix]
+        private static void StartOfRound_Awake(StartOfRound __instance)
+        {
             foreach (Scrap scrap in Scraps)
             {
                 if (!__instance.allItemsList.itemsList.Contains(scrap.item))
