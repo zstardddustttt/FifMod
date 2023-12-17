@@ -49,6 +49,49 @@ namespace FifMod.Patches
             }
         }
 
+        [HarmonyPatch(typeof(RoundManager), nameof(RoundManager.SpawnMapObjects))]
+        [HarmonyPrefix]
+        private static void RoundManager_SpawnMapObject()
+        {
+            var startOfRound = StartOfRound.Instance;
+            foreach (var level in startOfRound.levels)
+            {
+                if (!FifModBackendUtils.TryGetMoonFlagFromName(level.name, out MoonFlags flag)) continue;
+                var levelMapObjects = level.spawnableMapObjects.ToList();
+
+                foreach (var mapObject in MapObjects)
+                {
+                    var objectIdx = levelMapObjects.FindIndex(current => current.prefabToSpawn == mapObject.prefab);
+                    if (objectIdx != -1) levelMapObjects.RemoveAt(objectIdx);
+
+                    if (!mapObject.moons.HasFlag(flag)) continue;
+
+                    var spawnableMapObject = new SpawnableMapObject()
+                    {
+                        numberToSpawn = mapObject.spawnRateFunction(level),
+                        prefabToSpawn = mapObject.prefab,
+                        spawnFacingAwayFromWall = mapObject.facingAwayFromWall
+                    };
+
+                    levelMapObjects.Add(spawnableMapObject);
+                }
+
+                level.spawnableMapObjects = levelMapObjects.ToArray();
+            }
+
+            var randomMapObjects = UnityEngine.Object.FindObjectsOfType<RandomMapObject>();
+            foreach (var randomMapObject in randomMapObjects)
+            {
+                foreach (MapObject mapObject in MapObjects)
+                {
+                    if (!randomMapObject.spawnablePrefabs.Any((prefab) => prefab == mapObject.prefab))
+                    {
+                        randomMapObject.spawnablePrefabs.Add(mapObject.prefab);
+                    }
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.Awake))]
         [HarmonyPostfix]
         private static void StartOfRound_Awake(StartOfRound __instance)

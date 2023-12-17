@@ -7,7 +7,6 @@ namespace FifMod
     public abstract class FifModProperties
     {
         public abstract Type CustomBehaviour { get; }
-        public abstract Type[] CustomBehaviours { get; }
     }
 
     public abstract class FifModItemProperties : FifModProperties
@@ -39,9 +38,10 @@ namespace FifMod
 
     public abstract class FifModMapObjectProperties : FifModEntityProperties
     {
-        public abstract string ObjectAssetPath { get; }
+        public abstract string PrefabAssetPath { get; }
         public abstract Func<SelectableLevel, AnimationCurve> SpawnRateFunction { get; }
-        public abstract MapObjectSpawnFlags SpawnFlags { get; }
+        public abstract bool SpawnFacingAwayFromWall { get; }
+        //        public abstract MapObjectSpawnFlags SpawnFlags { get; }
     }
 
     public abstract class FifModEnemyProperties : FifModEntityProperties

@@ -21,11 +21,8 @@ namespace FifMod.Definitions
         };
 
         public override int Weight => 1;
-
         public override int MinValue => 45;
         public override int MaxValue => 85;
-
-        public override Type[] CustomBehaviours => null;
         public override ScrapSpawnFlags SpawnFlags => ScrapSpawnFlags.All;
     }
 

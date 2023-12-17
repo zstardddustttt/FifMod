@@ -33,6 +33,7 @@ namespace FifMod
         {
             var storeItemProperties = new List<FifModStoreItemProperties>();
             var scrapProperties = new List<FifModScrapProperties>();
+            var mapObjectProperties = new List<FifModMapObjectProperties>();
             foreach (var type in _assembly.GetTypes())
             {
                 if (type.IsAbstract) continue;
@@ -47,8 +48,13 @@ namespace FifMod
                     FifMod.Logger.LogInfo($"Found scrap properties: {type.Name}");
                     scrapProperties.Add((FifModScrapProperties)Activator.CreateInstance(type));
                 }
+                else if (type.IsSubclassOf(typeof(FifModMapObjectProperties)))
+                {
+                    FifMod.Logger.LogInfo($"Found map object properties: {type.Name}");
+                    mapObjectProperties.Add((FifModMapObjectProperties)Activator.CreateInstance(type));
+                }
             }
-            FifMod.Logger.LogInfo($"Loaded {storeItemProperties.Count} store items, {scrapProperties.Count} scraps");
+            FifMod.Logger.LogInfo($"Loaded {storeItemProperties.Count} store items, {scrapProperties.Count} scraps, {mapObjectProperties.Count} map objects");
 
             var registeredStoreItems = 0;
             foreach (var properties in storeItemProperties)
@@ -91,6 +97,27 @@ namespace FifMod
                 registeredScraps++;
             }
             FifMod.Logger.LogInfo($"Registered {registeredScraps}/{scrapProperties.Count} scraps");
+
+            var registeredMapObjects = 0;
+            foreach (var properties in mapObjectProperties)
+            {
+                if (!assets.TryGetAsset(properties.PrefabAssetPath, out GameObject prefab))
+                {
+                    FifMod.Logger.LogWarning($"GameObject at path {properties.PrefabAssetPath} was not found");
+                    continue;
+                }
+
+                if (properties.CustomBehaviour != null)
+                {
+                    prefab.AddComponent(properties.CustomBehaviour);
+                }
+
+                FifMod.Logger.LogInfo($"Registering map object | Name: {prefab.name}");
+                FifModBackend.RegisterNetworkPrefab(prefab);
+                FifModBackend.RegisterMapObject(prefab, properties.SpawnRateFunction, properties.SpawnFacingAwayFromWall, properties.Moons);
+                registeredMapObjects++;
+            }
+            FifMod.Logger.LogInfo($"Registered {registeredMapObjects}/{mapObjectProperties.Count} map objects");
 
             var types = Assembly.GetExecutingAssembly().GetTypes();
             foreach (var type in types)

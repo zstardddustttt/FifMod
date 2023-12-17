@@ -8,6 +8,7 @@
         "gameplay",
         "Glowstick",
         "Grabbable",
+        "interactable",
         "Layermask",
         "Lerp",
         "lethallib",

@@ -10,8 +10,8 @@ namespace FifMod.Definitions
     public class AxeProperties : FifModStoreItemProperties
     {
         public override int Price => ConfigManager.ItemsAxePrice.Value;
-        public override string ItemAssetPath => "Items/Axe/AxeItem.asset";
-        public override string InfoAssetPath => "Items/Axe/AxeInfo.asset";
+        public override string ItemAssetPath => "StoreItems/Axe/AxeItem.asset";
+        public override string InfoAssetPath => "StoreItems/Axe/AxeInfo.asset";
 
         public override Type CustomBehaviour => typeof(AxeBehaviour);
         public override Dictionary<string, string> Tooltips => new()
@@ -20,7 +20,6 @@ namespace FifMod.Definitions
         };
 
         public override int Weight => 21;
-        public override Type[] CustomBehaviours => null;
     }
 
     public class AxeBehaviour : GrabbableObject
@@ -41,11 +40,11 @@ namespace FifMod.Definitions
         public override void Start()
         {
             _axeSource = GetComponent<AudioSource>();
-            _reelUpAudio = FifMod.Assets.GetAsset<AudioClip>("Items/Axe/AxeReelUp.wav");
-            _swingAudio = FifMod.Assets.GetAsset<AudioClip>("Items/Axe/AxeSwing.wav");
+            _reelUpAudio = FifMod.Assets.GetAsset<AudioClip>("StoreItems/Axe/AxeReelUp.wav");
+            _swingAudio = FifMod.Assets.GetAsset<AudioClip>("StoreItems/Axe/AxeSwing.wav");
             _hitAudio = new AudioClip[]
             {
-                FifMod.Assets.GetAsset<AudioClip>("Items/Axe/AxeHit.wav")
+                FifMod.Assets.GetAsset<AudioClip>("StoreItems/Axe/AxeHit.wav")
             };
 
             grabbable = true;

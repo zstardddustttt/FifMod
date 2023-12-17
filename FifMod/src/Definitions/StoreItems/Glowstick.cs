@@ -9,8 +9,8 @@ namespace FifMod.Definitions
     public class GlowstickProperties : FifModStoreItemProperties
     {
         public override int Price => ConfigManager.ItemsGlowstickPrice.Value;
-        public override string ItemAssetPath => "Items/Glowstick/GlowstickItem.asset";
-        public override string InfoAssetPath => "Items/Glowstick/GlowstickInfo.asset";
+        public override string ItemAssetPath => "StoreItems/Glowstick/GlowstickItem.asset";
+        public override string InfoAssetPath => "StoreItems/Glowstick/GlowstickInfo.asset";
 
         public override Type CustomBehaviour => typeof(GlowstickBehaviour);
         public override Dictionary<string, string> Tooltips => new()
@@ -20,7 +20,6 @@ namespace FifMod.Definitions
         };
 
         public override int Weight => 2;
-        public override Type[] CustomBehaviours => null;
     }
 
     public class GlowstickBehaviour : GrabbableObject
@@ -79,9 +78,9 @@ namespace FifMod.Definitions
         {
             grabbable = true;
             grabbableToEnemies = true;
-            _enableAudio = FifMod.Assets.GetAsset<AudioClip>("Items/Glowstick/GlowstickOn.wav");
-            _disableAudio = FifMod.Assets.GetAsset<AudioClip>("Items/Glowstick/GlowstickOff.wav");
-            _switchAudio = FifMod.Assets.GetAsset<AudioClip>("Items/Glowstick/GlowstickSwitch.wav");
+            _enableAudio = FifMod.Assets.GetAsset<AudioClip>("StoreItems/Glowstick/GlowstickOn.wav");
+            _disableAudio = FifMod.Assets.GetAsset<AudioClip>("StoreItems/Glowstick/GlowstickOff.wav");
+            _switchAudio = FifMod.Assets.GetAsset<AudioClip>("StoreItems/Glowstick/GlowstickSwitch.wav");
 
             mainObjectRenderer = GetComponentInChildren<MeshRenderer>();
             _lightSource = GetComponentInChildren<Light>();
