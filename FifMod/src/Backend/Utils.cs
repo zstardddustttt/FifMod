@@ -18,7 +18,40 @@ namespace FifMod.Utils
             return keyword;
         }
 
-        public static string GetDefaultBuyNode1(string itemName)
+        public static TerminalNode GetDefaultItemInfo(string itemName)
+        {
+            var output = ScriptableObject.CreateInstance<TerminalNode>();
+            output.name = $"{itemName.Replace(" ", "-")}InfoNode";
+            output.displayText = $"[No information about this object was found.]\n\n";
+            output.clearPreviousText = true;
+            output.maxCharactersToType = 25;
+
+            return output;
+        }
+
+        public static TerminalNode GetDefaultBuyNode1(string itemName)
+        {
+            var output = ScriptableObject.CreateInstance<TerminalNode>();
+            output.name = $"{itemName.Replace(" ", "-")}BuyNode1";
+            output.displayText = GetDefaultBuyNode1Text(itemName);
+            output.clearPreviousText = true;
+            output.maxCharactersToType = 35;
+
+            return output;
+        }
+
+        public static TerminalNode GetDefaultBuyNode2(string itemName)
+        {
+            var output = ScriptableObject.CreateInstance<TerminalNode>();
+            output.name = $"{itemName.Replace(" ", "-")}BuyNode2";
+            output.displayText = GetDefaultBuyNode2Text(itemName);
+            output.clearPreviousText = true;
+            output.maxCharactersToType = 15;
+
+            return output;
+        }
+
+        public static string GetDefaultBuyNode1Text(string itemName)
         {
             return
 $@"You have requested to order {itemName}. Amount: [variableAmount].
@@ -29,7 +62,7 @@ Please CONFIRM or DENY.
 ";
         }
 
-        public static string GetDefaultBuyNode2(string itemName)
+        public static string GetDefaultBuyNode2Text(string itemName)
         {
             return
 $@"Ordered [variableAmount] {itemName}. Your new balance is [playerCredits].

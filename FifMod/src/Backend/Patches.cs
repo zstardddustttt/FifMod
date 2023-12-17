@@ -89,29 +89,13 @@ namespace FifMod.Patches
 
                 var itemName = storeItem.item.itemName;
 
-                var buyNode2 = storeItem.buyNode2;
-                if (!buyNode2)
-                {
-                    buyNode2 = ScriptableObject.CreateInstance<TerminalNode>();
-                    buyNode2.name = $"{itemName.Replace(" ", "-")}BuyNode2";
-                    buyNode2.displayText = FifModBackendUtils.GetDefaultBuyNode2(itemName);
-                    buyNode2.clearPreviousText = true;
-                    buyNode2.maxCharactersToType = 15;
-                }
+                var buyNode2 = storeItem.buyNode2 ?? FifModBackendUtils.GetDefaultBuyNode2(itemName);
                 buyNode2.buyItemIndex = itemList.Count - 1;
                 buyNode2.isConfirmationNode = false;
                 buyNode2.itemCost = storeItem.price;
                 buyNode2.playSyncedClip = 0;
 
-                var buyNode1 = storeItem.buyNode1;
-                if (!buyNode1)
-                {
-                    buyNode1 = ScriptableObject.CreateInstance<TerminalNode>();
-                    buyNode1.name = $"{itemName.Replace(" ", "-")}BuyNode1";
-                    buyNode1.displayText = FifModBackendUtils.GetDefaultBuyNode1(itemName);
-                    buyNode1.clearPreviousText = true;
-                    buyNode1.maxCharactersToType = 35;
-                }
+                var buyNode1 = storeItem.buyNode1 ?? FifModBackendUtils.GetDefaultBuyNode1(itemName);
                 buyNode1.buyItemIndex = itemList.Count - 1;
                 buyNode1.isConfirmationNode = true;
                 buyNode1.overrideOptions = true;
@@ -144,16 +128,7 @@ namespace FifMod.Patches
                 });
                 buyKeyword.compatibleNouns = nouns.ToArray();
 
-                var itemInfo = storeItem.itemInfo;
-                if (itemInfo == null)
-                {
-                    itemInfo = ScriptableObject.CreateInstance<TerminalNode>();
-                    itemInfo.name = $"{itemName.Replace(" ", "-")}InfoNode";
-                    itemInfo.displayText = $"[No information about this object was found.]\n\n";
-                    itemInfo.clearPreviousText = true;
-                    itemInfo.maxCharactersToType = 25;
-                }
-
+                var itemInfo = storeItem.itemInfo ?? FifModBackendUtils.GetDefaultItemInfo(itemName);
                 __instance.terminalNodes.allKeywords = allKeywords.ToArray();
 
                 var itemInfoNouns = infoKeyword.compatibleNouns.ToList();
