@@ -31,6 +31,7 @@ namespace FifMod
         Mansion = 1 << 2,
         Outside = 1 << 3,
         Daytime = 1 << 4,
+        Default = Facility | Mansion,
         All = Facility | Mansion | Outside | Daytime
     }
 
@@ -41,6 +42,7 @@ namespace FifMod
         Facility = 1 << 1,
         Mansion = 1 << 2,
         Outside = 1 << 3,
+        Default = Facility | Mansion,
         All = Facility | Mansion | Outside
     }
 
@@ -50,7 +52,6 @@ namespace FifMod
         None = 1 << 0,
         Facility = 1 << 1,
         Mansion = 1 << 2,
-        Outside = 1 << 3,
-        All = Facility | Mansion | Outside
+        All = Facility | Mansion
     }
 }

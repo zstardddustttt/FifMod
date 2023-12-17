@@ -20,9 +20,10 @@ namespace FifMod
     public abstract class FifModScrapProperties : FifModItemProperties
     {
         public abstract int Rarity { get; }
-        public abstract MoonFlags Moons { get; }
         public abstract int MinValue { get; }
         public abstract int MaxValue { get; }
+        public abstract MoonFlags Moons { get; }
+        public abstract ScrapSpawnFlags SpawnFlags { get; }
     }
 
     public abstract class FifModStoreItemProperties : FifModItemProperties

@@ -1,3 +1,4 @@
+using FifMod.Info;
 using UnityEngine;
 
 namespace FifMod.Utils
@@ -6,7 +7,6 @@ namespace FifMod.Utils
     {
         public static TerminalKeyword CreateTerminalKeyword(string word, bool isVerb = false, CompatibleNoun[] compatibleNouns = null, TerminalNode specialKeywordResult = null, TerminalKeyword defaultVerb = null, bool accessTerminalObjects = false)
         {
-
             TerminalKeyword keyword = ScriptableObject.CreateInstance<TerminalKeyword>();
             keyword.name = word;
             keyword.word = word;
@@ -16,6 +16,12 @@ namespace FifMod.Utils
             keyword.defaultVerb = defaultVerb;
             keyword.accessTerminalObjects = accessTerminalObjects;
             return keyword;
+        }
+
+        public static ScrapSpawnFlags GetCurrentGenerationFlowSpawnFlag()
+        {
+            if (FifModGameInfo.IsMansion) return ScrapSpawnFlags.Mansion;
+            else return ScrapSpawnFlags.Facility;
         }
 
         public static bool TryGetMoonFlagFromName(string name, out MoonFlags flags)

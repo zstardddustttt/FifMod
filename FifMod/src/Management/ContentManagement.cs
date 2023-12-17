@@ -87,7 +87,7 @@ namespace FifMod
                 var avgCost = (properties.MinValue + properties.MaxValue) / 2;
                 FifMod.Logger.LogInfo($"Registering scrap | Name: {item.itemName} | Avg Cost: {avgCost}");
                 RegisterItem(item, properties);
-                FifModBackend.RegisterScrap(item, properties.Rarity, properties.Moons);
+                FifModBackend.RegisterScrap(item, properties.Rarity, properties.Moons, properties.SpawnFlags);
                 registeredScraps++;
             }
             FifMod.Logger.LogInfo($"Registered {registeredScraps}/{scrapProperties.Count} scraps");

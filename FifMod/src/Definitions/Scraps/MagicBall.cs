@@ -26,6 +26,7 @@ namespace FifMod.Definitions
         public override int MaxValue => 85;
 
         public override Type[] CustomBehaviours => null;
+        public override ScrapSpawnFlags SpawnFlags => ScrapSpawnFlags.All;
     }
 
     public class MagicBallBehaviour : GrabbableObject

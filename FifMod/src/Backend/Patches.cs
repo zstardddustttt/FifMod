@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FifMod.Info;
 using FifMod.Utils;
 using HarmonyLib;
 using Unity.Netcode;
@@ -32,20 +33,18 @@ namespace FifMod.Patches
                 foreach (Scrap scrap in Scraps)
                 {
                     var scrapIdx = level.spawnableScrap.FindIndex(current => current.spawnableItem == scrap.item);
-                    if (scrap.moons.HasFlag(flag) && scrapIdx == -1)
-                    {
-                        var scrapItem = new SpawnableItemWithRarity()
-                        {
-                            spawnableItem = scrap.item,
-                            rarity = scrap.rarity
-                        };
+                    if (scrapIdx != -1) level.spawnableScrap.RemoveAt(scrapIdx);
 
-                        level.spawnableScrap.Add(scrapItem);
-                    }
-                    else if (!scrap.moons.HasFlag(flag) && scrapIdx != -1)
+                    if (!scrap.moons.HasFlag(flag)) continue;
+                    if (!scrap.spawnFlags.HasFlag(FifModBackendUtils.GetCurrentGenerationFlowSpawnFlag())) continue;
+
+                    var scrapItem = new SpawnableItemWithRarity()
                     {
-                        level.spawnableScrap.RemoveAt(scrapIdx);
-                    }
+                        spawnableItem = scrap.item,
+                        rarity = scrap.rarity
+                    };
+
+                    level.spawnableScrap.Add(scrapItem);
                 }
             }
         }
