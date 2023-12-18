@@ -114,7 +114,7 @@ namespace FifMod
 
                 FifMod.Logger.LogInfo($"Registering map object | Name: {prefab.name}");
                 FifModBackend.RegisterNetworkPrefab(prefab);
-                FifModBackend.RegisterMapObject(prefab, properties.SpawnRateFunction, properties.SpawnFacingAwayFromWall, properties.Moons);
+                FifModBackend.RegisterMapObject(prefab, properties.SpawnRateFunction, properties.SpawnFacingAwayFromWall, properties.Moons, properties.SpawnFlags);
                 registeredMapObjects++;
             }
             FifMod.Logger.LogInfo($"Registered {registeredMapObjects}/{mapObjectProperties.Count} map objects");

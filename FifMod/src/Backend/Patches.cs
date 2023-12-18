@@ -36,7 +36,8 @@ namespace FifMod.Patches
                     if (scrapIdx != -1) level.spawnableScrap.RemoveAt(scrapIdx);
 
                     if (!scrap.moons.HasFlag(flag)) continue;
-                    if (!scrap.spawnFlags.HasFlag(FifModBackendUtils.GetCurrentGenerationFlowSpawnFlag())) continue;
+                    if (FifModGameInfo.IsMansion && !scrap.spawnFlags.HasFlag(ScrapSpawnFlags.Mansion)) continue;
+                    if (!FifModGameInfo.IsMansion && !scrap.spawnFlags.HasFlag(ScrapSpawnFlags.Facility)) continue;
 
                     var scrapItem = new SpawnableItemWithRarity()
                     {
@@ -65,6 +66,8 @@ namespace FifMod.Patches
                     if (objectIdx != -1) levelMapObjects.RemoveAt(objectIdx);
 
                     if (!mapObject.moons.HasFlag(flag)) continue;
+                    if (FifModGameInfo.IsMansion && !mapObject.spawnFlags.HasFlag(ScrapSpawnFlags.Mansion)) continue;
+                    if (!FifModGameInfo.IsMansion && !mapObject.spawnFlags.HasFlag(ScrapSpawnFlags.Facility)) continue;
 
                     var spawnableMapObject = new SpawnableMapObject()
                     {

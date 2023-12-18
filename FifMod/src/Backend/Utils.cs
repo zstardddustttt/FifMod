@@ -18,12 +18,6 @@ namespace FifMod.Utils
             return keyword;
         }
 
-        public static ScrapSpawnFlags GetCurrentGenerationFlowSpawnFlag()
-        {
-            if (FifModGameInfo.IsMansion) return ScrapSpawnFlags.Mansion;
-            else return ScrapSpawnFlags.Facility;
-        }
-
         public static bool TryGetMoonFlagFromName(string name, out MoonFlags flags)
         {
             switch (name)

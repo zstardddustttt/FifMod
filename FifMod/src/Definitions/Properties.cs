@@ -41,7 +41,7 @@ namespace FifMod
         public abstract string PrefabAssetPath { get; }
         public abstract Func<SelectableLevel, AnimationCurve> SpawnRateFunction { get; }
         public abstract bool SpawnFacingAwayFromWall { get; }
-        //        public abstract MapObjectSpawnFlags SpawnFlags { get; }
+        public abstract MapObjectSpawnFlags SpawnFlags { get; }
     }
 
     public abstract class FifModEnemyProperties : FifModEntityProperties

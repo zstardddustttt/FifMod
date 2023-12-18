@@ -20,6 +20,8 @@ namespace FifMod.Definitions
         public override bool SpawnFacingAwayFromWall => true;
         public override MoonFlags Moons => MoonFlags.All;
         public override Type CustomBehaviour => typeof(RustyContainerBehaviour);
+
+        public override MapObjectSpawnFlags SpawnFlags => MapObjectSpawnFlags.Facility;
     }
 
     public class RustyContainerBehaviour : NetworkBehaviour
