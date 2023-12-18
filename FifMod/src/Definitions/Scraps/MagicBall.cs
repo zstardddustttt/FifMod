@@ -152,7 +152,7 @@ namespace FifMod.Definitions
             _answerSource.PlayOneShot(answer.Audio);
             MoveRotation(0);
 
-            if (IsOwner && GameNetworkManager.Instance.gameHasStarted)
+            if (IsOwner && !StartOfRound.Instance.inShipPhase)
             {
                 StopCoroutine(nameof(CO_IncreaseInstability));
                 StartCoroutine(nameof(CO_IncreaseInstability));
