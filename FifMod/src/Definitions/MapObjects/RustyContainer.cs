@@ -23,9 +23,17 @@ namespace FifMod.Definitions
     public class RustyContainerBehaviour : NetworkBehaviour
     {
         private InteractTrigger _interactTrigger;
+        private Animator _containerAnimator;
+
+        private AudioSource _audioSource;
+        private AudioClip _openAudio;
 
         private void Start()
         {
+            _audioSource = GetComponent<AudioSource>();
+            _openAudio = FifMod.Assets.GetAsset<AudioClip>("MapObjects/RustyContainer/ContainerOpen.wav");
+
+            _containerAnimator = GetComponentInChildren<Animator>();
             _interactTrigger = GetComponentInChildren<InteractTrigger>();
             _interactTrigger.interactable = true;
 
@@ -36,7 +44,19 @@ namespace FifMod.Definitions
         private void OnInteract(PlayerControllerB playerInteracted)
         {
             _interactTrigger.interactable = false;
-            FifMod.Logger.LogInfo($"{playerInteracted.playerUsername} interacted");
+            FifMod.Logger.LogInfo($"{playerInteracted.playerUsername} opened container");
+
+            if (IsServer)
+            {
+                OnInteractClientRpc();
+            }
+        }
+
+        [ClientRpc]
+        private void OnInteractClientRpc()
+        {
+            _containerAnimator.SetTrigger("Open");
+            _audioSource.PlayOneShot(_openAudio);
         }
     }
 }
