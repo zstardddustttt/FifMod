@@ -43,6 +43,36 @@ namespace FifMod.Definitions
                 Destroy(gameObject);
                 return;
             }
+
+            var layermaskMap = LayerMask.GetMask("Room", "Colliders");
+            var leftRaycast = Physics.Raycast(transform.position, -transform.right, 2.25f, layermaskMap);
+            if (leftRaycast)
+            {
+                FifMod.Logger.LogInfo($"Container {gameObject.name} spawned too close to the left, moving");
+                transform.Translate(0.5f, 0, 0);
+            }
+
+            var rightRaycast = Physics.Raycast(transform.position, transform.right, 2.25f, layermaskMap);
+            if (rightRaycast)
+            {
+                FifMod.Logger.LogInfo($"Container {gameObject.name} spawned too close to the right, moving");
+                transform.Translate(-0.5f, 0, 0);
+            }
+
+            var backRaycast = Physics.Raycast(transform.position, -transform.forward, 2.25f, layermaskMap);
+            if (backRaycast)
+            {
+                FifMod.Logger.LogInfo($"Container {gameObject.name} spawned too close to the back, moving");
+                transform.Translate(0, 0, 0.5f);
+            }
+
+            var forwardRaycast = Physics.Raycast(transform.position, transform.forward, 2.25f, layermaskMap);
+            if (forwardRaycast)
+            {
+                FifMod.Logger.LogInfo($"Container {gameObject.name} spawned too close to the forward, moving & rotating");
+                transform.Rotate(0, 180, 0);
+                transform.Translate(0, 0, -0.5f);
+            }
         }
 
         private void Start()
@@ -57,7 +87,7 @@ namespace FifMod.Definitions
             var interactAction = new UnityAction<PlayerControllerB>(OnInteract);
             _interactTrigger.onInteract.AddListener(interactAction);
 
-            _cheapItems = RoundManager.Instance.currentLevel.spawnableScrap.FindAll(scrap => scrap.spawnableItem.maxValue <= 55 / 0.4f).ToArray();
+            _cheapItems = RoundManager.Instance.currentLevel.spawnableScrap.FindAll(scrap => scrap.spawnableItem.maxValue <= 55 / 0.4f && scrap.spawnableItem.itemName != "Gift").ToArray();
         }
 
         private void OnInteract(PlayerControllerB playerInteracted)
