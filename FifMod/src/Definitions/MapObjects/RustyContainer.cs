@@ -31,12 +31,12 @@ namespace FifMod.Definitions
         private AudioClip _openAudio;
         private SpawnableItemWithRarity[] _cheapItems;
 
-        private Vector3 LootPosition => transform.position + transform.forward;
+        private Vector3 LootPosition => transform.position;
 
         private void Awake()
         {
             var layermaskRails = LayerMask.GetMask("Railing");
-            var rails = Physics.OverlapBox(transform.position, Vector3.one * 3, Quaternion.identity, layermaskRails);
+            var rails = Physics.OverlapBox(transform.position, new(2.5f, 1, 2.5f), Quaternion.identity, layermaskRails);
             if (rails.Length > 0)
             {
                 FifMod.Logger.LogInfo($"Container {gameObject.name} touches railing, destroying");
@@ -44,7 +44,7 @@ namespace FifMod.Definitions
                 return;
             }
 
-            var layermaskMap = LayerMask.GetMask("Room", "Colliders");
+            var layermaskMap = LayerMask.GetMask("Room");
             var leftRaycast = Physics.Raycast(transform.position, -transform.right, 2.25f, layermaskMap);
             if (leftRaycast)
             {
@@ -93,11 +93,12 @@ namespace FifMod.Definitions
         private void OnInteract(PlayerControllerB playerInteracted)
         {
             _interactTrigger.interactable = false;
+            _interactTrigger.GetComponent<BoxCollider>().enabled = false;
             FifMod.Logger.LogInfo($"{playerInteracted.playerUsername} opened container");
 
             if (IsServer)
             {
-                var dropLoot = new Item[UnityEngine.Random.Range(2, 5)];
+                var dropLoot = new Item[UnityEngine.Random.Range(1, 4)];
                 for (int i = 0; i < dropLoot.Length; i++)
                 {
                     dropLoot[i] = _cheapItems[UnityEngine.Random.Range(0, _cheapItems.Length)].spawnableItem;
@@ -115,7 +116,7 @@ namespace FifMod.Definitions
                 var spawnedScrapNetworkObjects = new List<NetworkObjectReference>();
                 foreach (var loot in dropLoot)
                 {
-                    var (value, networkObject) = FifModUtils.SpawnScrap(loot, LootPosition, RoundManager.Instance.spawnedScrapContainer);
+                    var (value, networkObject) = FifModUtils.SpawnScrap(loot, LootPosition + Vector3.up, RoundManager.Instance.spawnedScrapContainer);
                     spawnedScrapValues.Add(value);
                     spawnedScrapNetworkObjects.Add(networkObject);
                 }

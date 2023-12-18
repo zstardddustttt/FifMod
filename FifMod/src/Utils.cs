@@ -1,4 +1,3 @@
-using System.Collections;
 using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
