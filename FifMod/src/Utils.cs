@@ -1,5 +1,6 @@
 using System.Collections;
 using GameNetcodeStuff;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace FifMod.Utils
@@ -20,6 +21,22 @@ namespace FifMod.Utils
         public static float PoundsToItemWeight(int pounds)
         {
             return (float)pounds / 105 + 1;
+        }
+
+        public static (int value, NetworkObjectReference networkObject) SpawnScrap(Item scrapItem, Vector3 position, Transform holder = null)
+        {
+            var scrapObject = Object.Instantiate(scrapItem.spawnPrefab, position, Quaternion.identity, holder);
+            var grabbableObject = scrapObject.GetComponent<GrabbableObject>();
+            var networkObject = scrapObject.GetComponent<NetworkObject>();
+
+            scrapObject.transform.rotation = Quaternion.Euler(scrapItem.restingRotation);
+            grabbableObject.fallTime = 0f;
+
+            var value = (int)(Random.Range(scrapItem.minValue, scrapItem.maxValue) * RoundManager.Instance.scrapValueMultiplier);
+            grabbableObject.scrapValue = value;
+            networkObject.Spawn();
+
+            return (value, networkObject);
         }
 
         public static void CreateExplosion(Vector3 explosionPosition, bool spawnExplosionEffect = false, int damage = 20, float minDamageRange = 5.7f, float maxDamageRange = 6.4f, int enemyHitForce = 6, CauseOfDeath causeOfDeath = CauseOfDeath.Blast, PlayerControllerB attacker = null)
