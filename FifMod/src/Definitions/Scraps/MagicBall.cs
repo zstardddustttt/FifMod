@@ -65,7 +65,7 @@ namespace FifMod.Definitions
             grabbableToEnemies = true;
             _canShake = true;
 
-            _answerObject = transform.GetChild(0).GetChild(0);
+            _answerObject = gameObject.GetChild("Answer").transform;
             _answerText = _answerObject.GetComponentInChildren<TMP_Text>();
             _answerSource = _answerObject.GetComponent<AudioSource>();
 

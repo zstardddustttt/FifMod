@@ -6,6 +6,20 @@ namespace FifMod.Utils
 {
     public static class FifModUtils
     {
+        public static GameObject GetChild(this GameObject gameObject, string name)
+        {
+            var everyChild = gameObject.GetComponentsInChildren<Transform>(true);
+            foreach (var objectChild in everyChild)
+            {
+                if (objectChild.gameObject.name == name)
+                {
+                    return objectChild.gameObject;
+                }
+            }
+
+            return null;
+        }
+
         public static string FormatKey(this string key)
         {
             return key switch

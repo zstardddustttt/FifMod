@@ -35,6 +35,7 @@ namespace FifMod
             var storeItemProperties = new List<FifModStoreItemProperties>();
             var scrapProperties = new List<FifModScrapProperties>();
             var mapObjectProperties = new List<FifModMapObjectProperties>();
+            var enemyProperties = new List<FifModEnemyProperties>();
             foreach (var type in _assembly.GetTypes())
             {
                 if (type.IsAbstract) continue;
@@ -54,8 +55,17 @@ namespace FifMod
                     FifMod.Logger.LogInfo($"Found map object properties: {type.Name}");
                     mapObjectProperties.Add((FifModMapObjectProperties)Activator.CreateInstance(type));
                 }
+                else if (type.IsSubclassOf(typeof(FifModEnemyProperties)))
+                {
+                    FifMod.Logger.LogInfo($"Found enemy properties: {type.Name}");
+                    enemyProperties.Add((FifModEnemyProperties)Activator.CreateInstance(type));
+                }
             }
-            FifMod.Logger.LogInfo($"Loaded {storeItemProperties.Count} store items, {scrapProperties.Count} scraps, {mapObjectProperties.Count} map objects");
+            FifMod.Logger.LogInfo("Loaded properties\n" +
+            $"                     {storeItemProperties.Count} store items\n" +
+            $"                     {scrapProperties.Count} scraps\n" +
+            $"                     {mapObjectProperties.Count} map objects\n" +
+            $"                     {enemyProperties.Count} enemies");
 
             var registeredStoreItems = 0;
             foreach (var properties in storeItemProperties)
@@ -119,6 +129,34 @@ namespace FifMod
                 registeredMapObjects++;
             }
             FifMod.Logger.LogInfo($"Registered {registeredMapObjects}/{mapObjectProperties.Count} map objects");
+
+            var registeredEnemies = 0;
+            foreach (var properties in enemyProperties)
+            {
+                if (!assets.TryGetAsset(properties.EnemyAssetPath, out EnemyType enemy))
+                {
+                    FifMod.Logger.LogWarning($"EnemyType at path {properties.EnemyAssetPath} was not found");
+                    continue;
+                }
+
+                if (!assets.TryGetAsset(properties.InfoAssetPath, out TerminalNode info))
+                {
+                    FifMod.Logger.LogWarning($"TerminalNode at path {properties.InfoAssetPath} was not found");
+                    continue;
+                }
+
+                if (properties.CustomBehaviour != null)
+                {
+                    var behaviour = (EnemyAI)enemy.enemyPrefab.AddComponent(properties.CustomBehaviour);
+                    behaviour.enemyType = enemy;
+                }
+
+                FifMod.Logger.LogInfo($"Registering enemy | Name: {enemy.enemyName}");
+                FifModBackend.RegisterNetworkPrefab(enemy.enemyPrefab);
+                FifModBackend.RegisterEnemy(enemy, info, properties.Rarity, properties.Moons, properties.SpawnFlags);
+                registeredEnemies++;
+            }
+            FifMod.Logger.LogInfo($"Registered {registeredEnemies}/{enemyProperties.Count} enemies");
 
             var types = Assembly.GetExecutingAssembly().GetTypes();
             foreach (var type in types)

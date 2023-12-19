@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 17866134
+CRC: 2027370447
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1bc1a210e027ce819bc55cb6f776e723
+    Hash: 3ecf67c9817a980e9ff8cfd0f755d13d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: e383c3eb10fdffa359c8ea89e4d1307a
+    Hash: 65998faff007eb55b34bf92d324aeb1a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 1bc1a210e027ce819bc55cb6f776e723
+    Hash: 3ecf67c9817a980e9ff8cfd0f755d13d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,6 +28,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
 - Class: 74
@@ -45,6 +47,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 65d3fcb39dd67306e9bb17a603308070, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 04f75356a7e9c978bddc7d568e58a50b, type: 3}
@@ -59,6 +63,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 3d0cf24d2ccc3b7eab72048d0f57c437, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 6d7127b8f98ca8ec9896b384a71d39a2, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0e80ae96b3eb9177eea5c8f9dadbcda1, type: 3}
@@ -69,6 +75,8 @@ ClassTypes:
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
+  Script: {instanceID: 0}
+- Class: 195
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -122,83 +130,90 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
+- Assets/fifmod/StoreItems/Axe/TopDarkMetalness.jpg
+- Assets/fifmod/Scraps/SilverBar/SilverBar.asset
+- Assets/fifmod/StoreItems/Axe/TopBrightNormal.jpg
+- Assets/fifmod/Enemies/RustyMimic/Flesh.mat
+- Assets/fifmod/StoreItems/Glowstick/MetalNormal.jpg
+- Assets/fifmod/MapObjects/RustyContainer/MetalColor.jpg
+- Assets/fifmod/Scraps/MagicBall/MagicBall.prefab
+- Assets/fifmod/LethalCompanyAssets/MapDotRed.mat
+- Assets/fifmod/Scraps/MagicBall/BallPrimary.mat
+- Assets/fifmod/StoreItems/Glowstick/GlowstickIcon.png
+- Assets/fifmod/StoreItems/Glowstick/GlowstickDrop.wav
+- Assets/fifmod/Scraps/SilverBar/MetalText.mat
+- Assets/fifmod/StoreItems/Axe/AxeInfo.asset
+- Assets/fifmod/Scraps/SilverBar/MetalColor.jpg
+- Assets/fifmod/Scraps/MagicBall/MagicBallMaybe.wav
+- Assets/fifmod/Scraps/MagicBall/MagicBall.fbx
+- Assets/fifmod/LethalCompanyAssets/MapDot.mat
+- Assets/fifmod/Scraps/MagicBall/AnswerColor.png
+- Assets/fifmod/MapObjects/RustyContainer/RustyContainer.prefab
+- Assets/fifmod/Scraps/MagicBall/MagicBallYes.wav
+- Assets/fifmod/Scraps/MagicBall/BallSecondary.mat
+- Assets/fifmod/StoreItems/Axe/Stick.mat
+- Assets/fifmod/MapObjects/RustyContainer/PaintedMetalOcclusion.jpg
+- Assets/fifmod/MapObjects/RustyContainer/RustyContainer.controller
+- Assets/fifmod/Scraps/SilverBar/Metal.mat
+- Assets/fifmod/StoreItems/Glowstick/GlowstickInfo.asset
+- Assets/fifmod/StoreItems/Glowstick/GlowstickOn.wav
+- Assets/fifmod/StoreItems/Axe/TopDark.mat
+- Assets/fifmod/StoreItems/Glowstick/Metal.mat
+- Assets/fifmod/StoreItems/Glowstick/Glowstick.fbx
+- Assets/fifmod/MapObjects/RustyContainer/MetalNormal.jpg
+- Assets/fifmod/Scraps/SilverBar/SilverBar.prefab
+- Assets/fifmod/MapObjects/RustyContainer/MetalMetalness.jpg
+- Assets/fifmod/StoreItems/Axe/TopBright.mat
+- Assets/fifmod/StoreItems/Axe/TopDarkNormal.jpg
+- Assets/fifmod/Enemies/RustyMimic/RustyMimic.prefab
+- Assets/fifmod/Scraps/SilverBar/SIlverBarPickup.wav
+- Assets/fifmod/Enemies/RustyMimic/RustyMimicEnemy.asset
+- Assets/fifmod/StoreItems/Axe/AxeItem.asset
+- Assets/fifmod/MapObjects/RustyContainer/Metal.mat
+- Assets/fifmod/StoreItems/Glowstick/GlowstickItem.asset
+- Assets/fifmod/Enemies/RustyMimic/RustyMimicInfo.asset
+- Assets/fifmod/StoreItems/Axe/Axe.prefab
+- Assets/fifmod/StoreItems/Axe/AxeHit.wav
 - Assets/fifmod/StoreItems/Axe/StickColor.jpg
 - Assets/fifmod/StoreItems/Axe/StickNormal.jpg
 - Assets/fifmod/StoreItems/Axe/AxeIcon.png
 - Assets/fifmod/StoreItems/Axe/TopBrightMetalness.jpg
-- Assets/fifmod/StoreItems/Axe/TopDarkMetalness.jpg
-- Assets/fifmod/Scraps/SilverBar/SilverBar.asset
-- Assets/fifmod/StoreItems/Glowstick/Light.mat
 - Assets/fifmod/StoreItems/Glowstick/Glowstick.prefab
+- Assets/fifmod/StoreItems/Glowstick/Light.mat
 - Assets/fifmod/Scraps/SilverBar/MetalTextNormal.png
 - Assets/fifmod/Scraps/MagicBall/MagicBallDrop.wav
 - Assets/fifmod/Scraps/SilverBar/MetalNormal.jpg
 - Assets/fifmod/StoreItems/Axe/AxeReelUp.wav
-- Assets/fifmod/StoreItems/Axe/TopBrightNormal.jpg
 - Assets/fifmod/MapObjects/RustyContainer/ContainerIdle.anim
 - Assets/fifmod/StoreItems/Axe/AxeModel.fbx
 - Assets/fifmod/LethalCompanyAssets/MapDotGray.mat
 - Assets/fifmod/StoreItems/Axe/StickAO.jpg
 - Assets/fifmod/MapObjects/RustyContainer/RustyContainer.fbx
 - Assets/fifmod/MapObjects/RustyContainer/PaintedMetal.mat
-- Assets/fifmod/StoreItems/Glowstick/MetalNormal.jpg
 - Assets/fifmod/StoreItems/Glowstick/GlowstickGrab.wav
-- Assets/fifmod/MapObjects/RustyContainer/MetalColor.jpg
-- Assets/fifmod/Scraps/MagicBall/MagicBall.prefab
-- Assets/fifmod/LethalCompanyAssets/MapDotRed.mat
-- Assets/fifmod/Scraps/MagicBall/BallPrimary.mat
 - Assets/fifmod/Scraps/MagicBall/Black.mat
-- Assets/fifmod/StoreItems/Glowstick/GlowstickIcon.png
 - Assets/fifmod/Scraps/MagicBall/MagicBallItem.asset
 - Assets/fifmod/Scraps/MagicBall/MagicBallShake.wav
-- Assets/fifmod/StoreItems/Glowstick/GlowstickDrop.wav
 - Assets/fifmod/LethalCompanyAssets/MapDotRed 1.mat
-- Assets/fifmod/Scraps/SilverBar/MetalText.mat
 - Assets/fifmod/Scraps/MagicBall/MagicBallGrab.wav
-- Assets/fifmod/StoreItems/Axe/AxeInfo.asset
-- Assets/fifmod/Scraps/SilverBar/MetalColor.jpg
-- Assets/fifmod/Scraps/MagicBall/MagicBallMaybe.wav
 - Assets/fifmod/Scraps/SilverBar/SIlverBarDrop.wav
 - Assets/fifmod/StoreItems/Axe/TopBrightColor.jpg
 - Assets/fifmod/StoreItems/Axe/AxeSwing.wav
-- Assets/fifmod/Scraps/MagicBall/MagicBall.fbx
-- Assets/fifmod/LethalCompanyAssets/MapDot.mat
 - Assets/fifmod/Scraps/MagicBall/MagicBallNo.wav
-- Assets/fifmod/Scraps/MagicBall/AnswerColor.png
 - Assets/fifmod/MapObjects/RustyContainer/PaintedMetalNormal.jpg
-- Assets/fifmod/MapObjects/RustyContainer/RustyContainer.prefab
-- Assets/fifmod/Scraps/MagicBall/MagicBallYes.wav
+- Assets/fifmod/StoreItems/Glowstick/GlowstickOff.wav
 - Assets/fifmod/Scraps/MagicBall/Answer.mat
 - Assets/fifmod/MapObjects/RustyContainer/ContainerOpen.anim
 - Assets/fifmod/MapObjects/RustyContainer/ContainerOpen.wav
-- Assets/fifmod/StoreItems/Glowstick/GlowstickOff.wav
 - Assets/fifmod/StoreItems/Axe/AxeGrab.wav
-- Assets/fifmod/Scraps/MagicBall/BallSecondary.mat
-- Assets/fifmod/StoreItems/Axe/Stick.mat
-- Assets/fifmod/MapObjects/RustyContainer/PaintedMetalOcclusion.jpg
-- Assets/fifmod/MapObjects/RustyContainer/RustyContainer.controller
-- Assets/fifmod/Scraps/SilverBar/Metal.mat
-- Assets/fifmod/StoreItems/Glowstick/MetalColor.jpg
-- Assets/fifmod/StoreItems/Glowstick/GlowstickOn.wav
-- Assets/fifmod/StoreItems/Axe/TopDark.mat
-- Assets/fifmod/StoreItems/Glowstick/GlowstickInfo.asset
-- Assets/fifmod/StoreItems/Glowstick/Metal.mat
-- Assets/fifmod/StoreItems/Axe/TopDarkColor.jpg
-- Assets/fifmod/StoreItems/Glowstick/Glowstick.fbx
-- Assets/fifmod/MapObjects/RustyContainer/MetalNormal.jpg
-- Assets/fifmod/Scraps/SilverBar/SilverBar.prefab
-- Assets/fifmod/LethalCompanyAssets/ScrapItemIcon2.png
-- Assets/fifmod/MapObjects/RustyContainer/MetalMetalness.jpg
 - Assets/fifmod/StoreItems/Axe/AxeDrop.wav
-- Assets/fifmod/StoreItems/Axe/TopBright.mat
-- Assets/fifmod/StoreItems/Axe/TopDarkNormal.jpg
+- Assets/fifmod/Enemies/RustyMimic/RustyContainerEnemy.fbx
+- Assets/fifmod/StoreItems/Glowstick/MetalColor.jpg
+- Assets/fifmod/StoreItems/Axe/TopDarkColor.jpg
+- Assets/fifmod/Enemies/RustyMimic/Teeth.mat
+- Assets/fifmod/LethalCompanyAssets/ScrapItemIcon2.png
 - Assets/fifmod/MapObjects/RustyContainer/PaintedMetalColor.jpg
-- Assets/fifmod/Scraps/SilverBar/SIlverBarPickup.wav
 - Assets/fifmod/Scraps/SilverBar/SilverBar.fbx
 - Assets/fifmod/StoreItems/Glowstick/GlowstickSwitch.wav
-- Assets/fifmod/StoreItems/Axe/AxeItem.asset
-- Assets/fifmod/StoreItems/Glowstick/GlowstickItem.asset
-- Assets/fifmod/MapObjects/RustyContainer/Metal.mat
-- Assets/fifmod/StoreItems/Axe/Axe.prefab
-- Assets/fifmod/StoreItems/Axe/AxeHit.wav
+- Assets/fifmod/Enemies/RustyMimic/FleshNormal.jpg
 Dependencies: []

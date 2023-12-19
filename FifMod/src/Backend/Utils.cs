@@ -5,6 +5,11 @@ namespace FifMod.Utils
 {
     public static class FifModBackendUtils
     {
+        public static TerminalKeyword CreateEnemyTerminalKeyword(string enemyName, TerminalKeyword defaultVerb)
+        {
+            return CreateTerminalKeyword(enemyName.ToLowerInvariant().Replace(" ", "-"), defaultVerb: defaultVerb);
+        }
+
         public static TerminalKeyword CreateTerminalKeyword(string word, bool isVerb = false, CompatibleNoun[] compatibleNouns = null, TerminalNode specialKeywordResult = null, TerminalKeyword defaultVerb = null, bool accessTerminalObjects = false)
         {
             TerminalKeyword keyword = ScriptableObject.CreateInstance<TerminalKeyword>();
