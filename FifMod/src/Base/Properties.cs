@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FifMod
+namespace FifMod.Base
 {
     public abstract class FifModProperties
     {
@@ -18,7 +18,7 @@ namespace FifMod
 
     public abstract class FifModScrapProperties : FifModItemProperties
     {
-        public abstract int Rarity { get; }
+        public abstract FifModRarity Rarity { get; }
         public abstract int MinValue { get; }
         public abstract int MaxValue { get; }
         public abstract MoonFlags Moons { get; }
@@ -48,7 +48,7 @@ namespace FifMod
     {
         public abstract string EnemyAssetPath { get; }
         public abstract string InfoAssetPath { get; }
-        public abstract int Rarity { get; }
+        public abstract FifModRarity Rarity { get; }
         public abstract EnemySpawnFlags SpawnFlags { get; }
     }
 }

@@ -5,6 +5,7 @@ using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using FifMod.Base;
 
 namespace FifMod.Definitions
 {

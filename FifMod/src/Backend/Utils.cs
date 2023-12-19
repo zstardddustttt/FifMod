@@ -1,4 +1,4 @@
-using FifMod.Info;
+using FifMod.Base;
 using UnityEngine;
 
 namespace FifMod.Utils

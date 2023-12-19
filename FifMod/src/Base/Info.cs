@@ -1,6 +1,6 @@
 using System;
 
-namespace FifMod.Info
+namespace FifMod.Base
 {
     public static class FifModGameInfo
     {

@@ -1,10 +1,8 @@
-using System;
 using System.Linq;
-using FifMod.Info;
+using FifMod.Base;
 using FifMod.Utils;
 using HarmonyLib;
 using Unity.Netcode;
-using UnityEngine;
 using static FifMod.FifModBackend;
 
 namespace FifMod.Patches
@@ -42,7 +40,7 @@ namespace FifMod.Patches
                     var scrapItem = new SpawnableItemWithRarity()
                     {
                         spawnableItem = scrap.item,
-                        rarity = scrap.rarity
+                        rarity = scrap.rarity.GetRarityOfFlags(flag)[0]
                     };
 
                     level.spawnableScrap.Add(scrapItem);

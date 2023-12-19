@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using FifMod.Utils;
 using UnityEngine;
+using FifMod.Base;
 
 namespace FifMod
 {

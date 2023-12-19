@@ -1,6 +1,6 @@
 using System;
 
-namespace FifMod
+namespace FifMod.Base
 {
     [Flags]
     public enum MoonFlags

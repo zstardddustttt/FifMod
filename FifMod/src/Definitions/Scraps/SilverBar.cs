@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using FifMod.Base;
 
 namespace FifMod.Definitions
 {
     public class SilverBarProperties : FifModScrapProperties
     {
         public override string ItemAssetPath => "Scraps/SilverBar/SilverBar.asset";
-        public override int Rarity => ConfigManager.ScrapsSilverBarRarity.Value;
+        public override FifModRarity Rarity => FifModRarity.All(25 * ConfigManager.ScrapsSilverBarRarity.Value);
         public override MoonFlags Moons => MoonFlags.All;
 
         public override Type CustomBehaviour => null;

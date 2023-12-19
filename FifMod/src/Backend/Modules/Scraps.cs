@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FifMod.Base;
 
 namespace FifMod
 {
@@ -7,7 +8,7 @@ namespace FifMod
         private static readonly List<Scrap> _scraps = new();
         public static Scrap[] Scraps => _scraps.ToArray();
 
-        public static void RegisterScrap(Item scrapItem, int rarity, MoonFlags moons, ScrapSpawnFlags spawnFlags)
+        public static void RegisterScrap(Item scrapItem, FifModRarity rarity, MoonFlags moons, ScrapSpawnFlags spawnFlags)
         {
             var scrap = new Scrap(scrapItem, rarity, moons, spawnFlags);
             _scraps.Add(scrap);
@@ -16,11 +17,11 @@ namespace FifMod
         public readonly struct Scrap
         {
             public readonly Item item;
-            public readonly int rarity;
+            public readonly FifModRarity rarity;
             public readonly MoonFlags moons;
             public readonly ScrapSpawnFlags spawnFlags;
 
-            public Scrap(Item item, int rarity, MoonFlags moons, ScrapSpawnFlags spawnFlags)
+            public Scrap(Item item, FifModRarity rarity, MoonFlags moons, ScrapSpawnFlags spawnFlags)
             {
                 this.item = item;
                 this.rarity = rarity;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FifMod.Base;
 using FifMod.Utils;
 using TMPro;
 using Unity.Netcode;
@@ -11,7 +12,7 @@ namespace FifMod.Definitions
     public class MagicBallProperties : FifModScrapProperties
     {
         public override string ItemAssetPath => "Scraps/MagicBall/MagicBallItem.asset";
-        public override int Rarity => ConfigManager.ScrapsMagicBallRarity.Value;
+        public override FifModRarity Rarity => FifModRarity.All(45 * ConfigManager.ScrapsMagicBallRarity.Value);
         public override MoonFlags Moons => MoonFlags.All;
 
         public override Type CustomBehaviour => typeof(MagicBallBehaviour);
