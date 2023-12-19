@@ -64,8 +64,8 @@ namespace FifMod.Patches
                     if (objectIdx != -1) levelMapObjects.RemoveAt(objectIdx);
 
                     if (!mapObject.moons.HasFlag(flag)) continue;
-                    if (FifModGameInfo.IsMansion && !mapObject.spawnFlags.HasFlag(ScrapSpawnFlags.Mansion)) continue;
-                    if (!FifModGameInfo.IsMansion && !mapObject.spawnFlags.HasFlag(ScrapSpawnFlags.Facility)) continue;
+                    if (FifModGameInfo.IsMansion && !mapObject.spawnFlags.HasFlag(MapObjectSpawnFlags.Mansion)) continue;
+                    if (!FifModGameInfo.IsMansion && !mapObject.spawnFlags.HasFlag(MapObjectSpawnFlags.Facility)) continue;
 
                     var spawnableMapObject = new SpawnableMapObject()
                     {
