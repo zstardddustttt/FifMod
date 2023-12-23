@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2027370447
+CRC: 101208852
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3ecf67c9817a980e9ff8cfd0f755d13d
+    Hash: f8477fe30d6e3e96295abfac6c198d7d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 65998faff007eb55b34bf92d324aeb1a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 3ecf67c9817a980e9ff8cfd0f755d13d
+    Hash: f8477fe30d6e3e96295abfac6c198d7d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -140,10 +140,12 @@ Assets:
 - Assets/fifmod/LethalCompanyAssets/MapDotRed.mat
 - Assets/fifmod/Scraps/MagicBall/BallPrimary.mat
 - Assets/fifmod/StoreItems/Glowstick/GlowstickIcon.png
+- Assets/fifmod/Enemies/RustyMimic/Attack.anim
 - Assets/fifmod/StoreItems/Glowstick/GlowstickDrop.wav
 - Assets/fifmod/Scraps/SilverBar/MetalText.mat
 - Assets/fifmod/StoreItems/Axe/AxeInfo.asset
 - Assets/fifmod/Scraps/SilverBar/MetalColor.jpg
+- Assets/fifmod/Enemies/RustyMimic/Close.anim
 - Assets/fifmod/Scraps/MagicBall/MagicBallMaybe.wav
 - Assets/fifmod/Scraps/MagicBall/MagicBall.fbx
 - Assets/fifmod/LethalCompanyAssets/MapDot.mat
@@ -169,8 +171,8 @@ Assets:
 - Assets/fifmod/Scraps/SilverBar/SIlverBarPickup.wav
 - Assets/fifmod/Enemies/RustyMimic/RustyMimicEnemy.asset
 - Assets/fifmod/StoreItems/Axe/AxeItem.asset
-- Assets/fifmod/MapObjects/RustyContainer/Metal.mat
 - Assets/fifmod/StoreItems/Glowstick/GlowstickItem.asset
+- Assets/fifmod/MapObjects/RustyContainer/Metal.mat
 - Assets/fifmod/Enemies/RustyMimic/RustyMimicInfo.asset
 - Assets/fifmod/StoreItems/Axe/Axe.prefab
 - Assets/fifmod/StoreItems/Axe/AxeHit.wav
@@ -197,6 +199,7 @@ Assets:
 - Assets/fifmod/LethalCompanyAssets/MapDotRed 1.mat
 - Assets/fifmod/Scraps/MagicBall/MagicBallGrab.wav
 - Assets/fifmod/Scraps/SilverBar/SIlverBarDrop.wav
+- Assets/fifmod/Enemies/RustyMimic/Jump.anim
 - Assets/fifmod/StoreItems/Axe/TopBrightColor.jpg
 - Assets/fifmod/StoreItems/Axe/AxeSwing.wav
 - Assets/fifmod/Scraps/MagicBall/MagicBallNo.wav
@@ -205,6 +208,7 @@ Assets:
 - Assets/fifmod/Scraps/MagicBall/Answer.mat
 - Assets/fifmod/MapObjects/RustyContainer/ContainerOpen.anim
 - Assets/fifmod/MapObjects/RustyContainer/ContainerOpen.wav
+- Assets/fifmod/Enemies/RustyMimic/BURNIN.wav
 - Assets/fifmod/StoreItems/Axe/AxeGrab.wav
 - Assets/fifmod/StoreItems/Axe/AxeDrop.wav
 - Assets/fifmod/Enemies/RustyMimic/RustyContainerEnemy.fbx
@@ -215,5 +219,6 @@ Assets:
 - Assets/fifmod/MapObjects/RustyContainer/PaintedMetalColor.jpg
 - Assets/fifmod/Scraps/SilverBar/SilverBar.fbx
 - Assets/fifmod/StoreItems/Glowstick/GlowstickSwitch.wav
+- Assets/fifmod/Enemies/RustyMimic/RustyContainerEnemy.controller
 - Assets/fifmod/Enemies/RustyMimic/FleshNormal.jpg
 Dependencies: []
