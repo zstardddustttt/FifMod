@@ -15,31 +15,35 @@ namespace FifMod.Definitions
         public override string EnemyAssetPath => "Enemies/RustyMimic/RustyMimicEnemy.asset";
         public override string InfoAssetPath => "Enemies/RustyMimic/RustyMimicInfo.asset";
 
-        public override FifModRarity Rarity => FifModRarity.All(100);
+        public override FifModRarity Rarity => FifModRarity.All(0);
         public override EnemySpawnFlags SpawnFlags => EnemySpawnFlags.Facility;
         public override MoonFlags Moons => MoonFlags.All;
 
         public override Type CustomBehaviour => typeof(RustyMimicBehaviour);
     }
 
-    public class RustyMimicBehaviour : EnemyAI
+    public class RustyMimicBehaviour : FifModEnemy
     {
         private const float HUNT_UPDATE_DELTA = 1f;
         private const float MIN_HUNT_TIME = 60f;
         private const float HUNT_END_DELAY = 10f;
         private const float HUNT_ATTACK_TIME = 5f;
         private const float SEARCH_UPDATE_DELTA = 0.5f;
-        private const float MIN_SEARCH_TIME = 3f;
+        private const float MIN_SEARCH_TIME = 20f;
 
         private const float SEARCH_SPEED = 3.5f;
-        private const float HUNT_SPEED = 0f;
         private const float ENRAGED_SPEED = 5.25f;
+
+        private const float MAX_ENRAGED_TIME = 40f;
 
         private readonly LayerMask _railingMask = LayerMask.GetMask("Railing");
 
         private MimicState _state;
-        private AISearchRoutine _searchForSpot;
+        private readonly AISearchRoutine _searchForSpot = new();
+        private readonly AISearchRoutine _enragedSearch = new();
         private InteractTrigger _interactTrigger;
+
+        private bool _didKillAnyone;
 
         public override void Start()
         {
@@ -51,7 +55,6 @@ namespace FifMod.Definitions
             var enemyCollision = GetComponentInChildren<EnemyAICollisionDetect>();
             enemyCollision.mainScript = this;
             eye = transform;
-            base.Start();
 
             _interactTrigger = GetComponentInChildren<InteractTrigger>();
             _interactTrigger.interactable = true;
@@ -60,7 +63,10 @@ namespace FifMod.Definitions
             _interactTrigger.onInteract.AddListener(interactAction);
 
             agent.speed = 0f;
-            if (IsServer) StartCoroutine(nameof(CO_EnemyBehaviour));
+            agent.acceleration = 100;
+            agent.angularSpeed = 300;
+
+            base.Start();
         }
 
         private void OnInteract(PlayerControllerB playerInteracted)
@@ -71,6 +77,7 @@ namespace FifMod.Definitions
         [ServerRpc(RequireOwnership = false)]
         private void PlayerInteractedServerRpc(int player)
         {
+            _didKillAnyone = true;
             SetTriggerClientRpc("Attack");
             AttackClientRpc(player);
 
@@ -90,6 +97,7 @@ namespace FifMod.Definitions
         {
             var player = StartOfRound.Instance.allPlayerScripts[playerIdx];
             FifMod.Logger.LogInfo($"attacking {player.playerUsername}");
+            transform.LookAt(player.transform);
 
             if (GameNetworkManager.Instance.localPlayerController == player)
             {
@@ -118,15 +126,17 @@ namespace FifMod.Definitions
             FifMod.Logger.LogInfo($"setting interactable on client to: {value}");
         }
 
-        private IEnumerator CO_EnemyBehaviour()
+        protected override IEnumerator CO_EnemyBehaviour()
         {
-            StartSearch(transform.position, _searchForSpot);
             while (!isEnemyDead && !StartOfRound.Instance.allPlayersDead)
             {
                 FifMod.Logger.LogInfo($"starting search phase");
                 _state = MimicState.Searching;
-                agent.speed = SEARCH_SPEED;
                 SetBoolClientRpc("Moving", true);
+                SetInteractableClientRpc(false);
+
+                StartSearch(transform.position, _searchForSpot);
+                agent.speed = SEARCH_SPEED;
 
                 var searchingTime = 0f;
                 while (true)
@@ -148,13 +158,14 @@ namespace FifMod.Definitions
 
                 FifMod.Logger.LogInfo($"starting hunt phase");
                 _state = MimicState.Hunting;
-                agent.speed = HUNT_SPEED;
+                StopSearch(_searchForSpot);
                 SetBoolClientRpc("Moving", false);
+                SetInteractableClientRpc(true);
 
                 var huntTime = 0f;
                 var endHuntTime = MIN_HUNT_TIME;
                 var attackTime = 0f;
-                var didKillAnyone = false;
+                _didKillAnyone = false;
                 while (true)
                 {
                     yield return new WaitForSeconds(HUNT_UPDATE_DELTA);
@@ -171,11 +182,11 @@ namespace FifMod.Definitions
                     if (attackTime >= HUNT_ATTACK_TIME)
                     {
                         SetTriggerClientRpc("Attack");
-                        foreach (var player in playersInFront)
+                        foreach (var playerCollider in playersInFront)
                         {
-                            AttackClientRpc(Array.IndexOf(StartOfRound.Instance.allPlayerScripts, player));
+                            AttackClientRpc(Array.IndexOf(StartOfRound.Instance.allPlayerScripts, playerCollider.GetComponent<PlayerControllerB>()));
                         }
-                        didKillAnyone = true;
+                        _didKillAnyone = true;
                         attackTime = 0f;
                     }
 
@@ -195,28 +206,51 @@ namespace FifMod.Definitions
                     }
                 }
 
-                if (didKillAnyone) continue;
+                if (_didKillAnyone) continue;
 
                 FifMod.Logger.LogInfo($"mimic did not kill anyone, he is enraged");
                 _state = MimicState.Enraged;
+                SetBoolClientRpc("Moving", true);
+                SetInteractableClientRpc(false);
+
                 agent.speed = ENRAGED_SPEED;
-            }
-        }
+                StartSearch(transform.position, _enragedSearch);
 
-        private bool CheckForPlayers(float distance)
-        {
-            foreach (var player in StartOfRound.Instance.allPlayerScripts)
-            {
-                if (!PlayerIsTargetable(player)) continue;
-
-                var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-                if (distanceToPlayer < distance)
+                var enragedTime = 0f;
+                while (true)
                 {
-                    return true;
-                }
-            }
+                    enragedTime += Time.deltaTime;
+                    if (enragedTime >= MAX_ENRAGED_TIME)
+                    {
+                        FifMod.Logger.LogInfo($"mimic calmed down, starting next phase");
+                        break;
+                    }
 
-            return false;
+                    var playersInFront = Physics.OverlapBox(transform.position + transform.forward, Vector3.one * 1f, Quaternion.identity, 8, QueryTriggerInteraction.Collide);
+                    if (playersInFront.Length > 0)
+                    {
+                        FifMod.Logger.LogInfo("Enraged mimic is attacking players!");
+                        SetTriggerClientRpc("Attack");
+                        foreach (var playerCollider in playersInFront)
+                        {
+                            AttackClientRpc(Array.IndexOf(StartOfRound.Instance.allPlayerScripts, playerCollider.GetComponent<PlayerControllerB>()));
+                        }
+                        break;
+                    }
+
+                    yield return null;
+                }
+
+                StopSearch(_enragedSearch);
+                SetBoolClientRpc("Moving", false);
+
+                FifMod.Logger.LogInfo($"starting idle phase");
+                SetBoolClientRpc("Idling", true);
+                yield return new WaitForSeconds(5f);
+
+                FifMod.Logger.LogInfo($"ended idle phase");
+                SetBoolClientRpc("Idling", false);
+            }
         }
     }
 
@@ -225,5 +259,6 @@ namespace FifMod.Definitions
         Searching,
         Hunting,
         Enraged,
+        Idling
     }
 }

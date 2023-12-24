@@ -1,13 +1,17 @@
+using System.Linq;
 using GameNetcodeStuff;
 using HarmonyLib;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace FifMod.Patches
 {
     [HarmonyPatch(typeof(PlayerControllerB))]
     internal class P_PlayerControllerB
     {
-        [HarmonyPatch("ConnectClientToPlayerObject")]
+        private static bool spawned;
+
+        [HarmonyPatch(nameof(PlayerControllerB.ConnectClientToPlayerObject))]
         [HarmonyPostfix]
         private static void SendFifmodMessage(ref ulong ___playerClientId)
         {
@@ -24,6 +28,23 @@ namespace FifMod.Patches
             };
 
             HUDManager.Instance.ReadDialogue(fifmodDialogue);
+        }
+
+        [HarmonyPatch(nameof(PlayerControllerB.Emote2_performed))]
+        [HarmonyPrefix]
+        private static void SpawnMimic(ref PlayerControllerB __instance)
+        {
+            if (spawned) return;
+
+            var pos = __instance.serverPlayerPosition;
+            var allAINodes = GameObject.FindGameObjectsWithTag("AINode");
+            var nodesTempArray = allAINodes.OrderBy((GameObject x) => Vector3.Distance(pos, x.transform.position)).ToArray();
+            var result = nodesTempArray[0].transform;
+
+            var enemyIdx = RoundManager.Instance.currentLevel.Enemies.FindIndex(enemy => enemy.enemyType.enemyName == "Container mimic");
+            RoundManager.Instance.SpawnEnemyOnServer(result.position, 0, enemyIdx);
+
+            spawned = true;
         }
     }
 }

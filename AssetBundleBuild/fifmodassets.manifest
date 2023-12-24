@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 101208852
+CRC: 260397486
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f8477fe30d6e3e96295abfac6c198d7d
+    Hash: 49dc5256d555413d5890b739c6f109d9
   TypeTreeHash:
     serializedVersion: 2
     Hash: 65998faff007eb55b34bf92d324aeb1a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: f8477fe30d6e3e96295abfac6c198d7d
+    Hash: 49dc5256d555413d5890b739c6f109d9
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -174,8 +174,9 @@ Assets:
 - Assets/fifmod/StoreItems/Glowstick/GlowstickItem.asset
 - Assets/fifmod/MapObjects/RustyContainer/Metal.mat
 - Assets/fifmod/Enemies/RustyMimic/RustyMimicInfo.asset
-- Assets/fifmod/StoreItems/Axe/Axe.prefab
 - Assets/fifmod/StoreItems/Axe/AxeHit.wav
+- Assets/fifmod/StoreItems/Axe/Axe.prefab
+- Assets/fifmod/Enemies/RustyMimic/Idle.anim
 - Assets/fifmod/StoreItems/Axe/StickColor.jpg
 - Assets/fifmod/StoreItems/Axe/StickNormal.jpg
 - Assets/fifmod/StoreItems/Axe/AxeIcon.png

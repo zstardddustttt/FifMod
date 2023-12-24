@@ -9,7 +9,7 @@ namespace FifMod.Patches
     [HarmonyPatch(typeof(GrabbableObject))]
     internal class P_GrabbableObject
     {
-        [HarmonyPatch("EquipItem")]
+        [HarmonyPatch(nameof(GrabbableObject.EquipItem))]
         [HarmonyPrefix]
         private static void ApplyTooltips(ref Item ___itemProperties)
         {
